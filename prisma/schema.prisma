@@ -17,9 +17,10 @@ model Country {
 }
 
 model Trivia {
-  id         Int     @id @default(autoincrement())
-  countryId  Int
-  country    Country @relation(fields: [countryId], references: [id])
-  suggestion String
-  pass       Boolean
+  id             String  @id @default(uuid())
+  countryId      Int
+  country        Country @relation(fields: [countryId], references: [id])
+  userSuggestion String
+  pass           Boolean
+  response       String
 }
