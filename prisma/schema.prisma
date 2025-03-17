@@ -9,3 +9,17 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model Country {
+  id     Int      @id @default(autoincrement())
+  name   String
+  trivia Trivia[]
+}
+
+model Trivia {
+  id         Int     @id @default(autoincrement())
+  countryId  Int
+  country    Country @relation(fields: [countryId], references: [id])
+  suggestion String
+  pass       Boolean
+}
