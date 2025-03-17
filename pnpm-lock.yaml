@@ -11,6 +11,12 @@ importers:
       '@netlify/functions':
         specifier: 2.8.2
         version: 2.8.2
+      '@prisma/client':
+        specifier: 6.5.0
+        version: 6.5.0(prisma@6.5.0(typescript@5.8.2))(typescript@5.8.2)
+      '@react-router/fs-routes':
+        specifier: ^7.3.0
+        version: 7.3.0(@react-router/dev@7.3.0(@types/node@22.13.10)(lightningcss@1.29.2)(react-router@7.3.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)(vite@5.4.14(@types/node@22.13.10)(lightningcss@1.29.2)))(typescript@5.8.2)
       '@react-router/node':
         specifier: 7.3.0
         version: 7.3.0(react-router@7.3.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)
@@ -45,6 +51,9 @@ importers:
       '@types/express':
         specifier: ^4.17.21
         version: 4.17.21
+      '@types/node':
+        specifier: ^22.13.10
+        version: 22.13.10
       '@types/react':
         specifier: ^19.0.1
         version: 19.0.10
@@ -72,8 +81,11 @@ importers:
       tailwindcss:
         specifier: ^4.0.0
         version: 4.0.14
+      ts-node:
+        specifier: ^10.9.2
+        version: 10.9.2(@types/node@22.13.10)(typescript@5.8.2)
       typescript:
-        specifier: ^5.7.2
+        specifier: ^5.8.2
         version: 5.8.2
       vite:
         specifier: ^5.4.11
@@ -1115,6 +1127,18 @@ packages:
     resolution: {integrity: sha512-c83qWb22rNRuB0UaVCI0uRPNRr8Z0FWnEIvT47jiHAmOIUHbBOg5XvV7pM5x+rKn9HRpjxquDbXYSXr3fAKFcw==}
     engines: {node: '>=12'}
 
+  '@prisma/client@6.5.0':
+    resolution: {integrity: sha512-M6w1Ql/BeiGoZmhMdAZUXHu5sz5HubyVcKukbLs3l0ELcQb8hTUJxtGEChhv4SVJ0QJlwtLnwOLgIRQhpsm9dw==}
+    engines: {node: '>=18.18'}
+    peerDependencies:
+      prisma: '*'
+      typescript: '>=5.1.0'
+    peerDependenciesMeta:
+      prisma:
+        optional: true
+      typescript:
+        optional: true
+
   '@prisma/config@6.5.0':
     resolution: {integrity: sha512-sOH/2Go9Zer67DNFLZk6pYOHj+rumSb0VILgltkoxOjYnlLqUpHPAN826vnx8HigqnOCxj9LRhT6U7uLiIIWgw==}
 
@@ -1149,6 +1173,16 @@ packages:
       typescript:
         optional: true
       wrangler:
+        optional: true
+
+  '@react-router/fs-routes@7.3.0':
+    resolution: {integrity: sha512-GJiNer1o8qg3me1bSLUQV4jQPtL6d429qPLzEZEvC9W8Vcvgv+v3svzdVDgiXrZ4l2loUZy4sooyPJ/U3Oyfkw==}
+    engines: {node: '>=20.0.0'}
+    peerDependencies:
+      '@react-router/dev': ^7.3.0
+      typescript: ^5.1.0
+    peerDependenciesMeta:
+      typescript:
         optional: true
 
   '@react-router/node@7.3.0':
@@ -6407,6 +6441,11 @@ snapshots:
       '@pnpm/network.ca-file': 1.0.2
       config-chain: 1.1.13
 
+  '@prisma/client@6.5.0(prisma@6.5.0(typescript@5.8.2))(typescript@5.8.2)':
+    optionalDependencies:
+      prisma: 6.5.0(typescript@5.8.2)
+      typescript: 5.8.2
+
   '@prisma/config@6.5.0':
     dependencies:
       esbuild: 0.21.5
@@ -6480,6 +6519,13 @@ snapshots:
       - sugarss
       - supports-color
       - terser
+
+  '@react-router/fs-routes@7.3.0(@react-router/dev@7.3.0(@types/node@22.13.10)(lightningcss@1.29.2)(react-router@7.3.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)(vite@5.4.14(@types/node@22.13.10)(lightningcss@1.29.2)))(typescript@5.8.2)':
+    dependencies:
+      '@react-router/dev': 7.3.0(@types/node@22.13.10)(lightningcss@1.29.2)(react-router@7.3.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)(vite@5.4.14(@types/node@22.13.10)(lightningcss@1.29.2))
+      minimatch: 9.0.5
+    optionalDependencies:
+      typescript: 5.8.2
 
   '@react-router/node@7.3.0(react-router@7.3.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.8.2)':
     dependencies:
