@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useFetcher } from "react-router";
-import { z } from "zod";
 import { countries } from "~/data/countries";
 import { randomChoice } from "~/shared/utils";
 import type { Route } from "./+types/_index";
@@ -11,11 +10,6 @@ export function meta({}: Route.MetaArgs) {
 		{ name: "description", content: "Welcome to React Router!" },
 	];
 }
-
-const countryResponse = z.object({
-	pass: z.boolean(),
-	response: z.string(),
-});
 
 export default function Home(_: Route.ComponentProps) {
 	const fetcher = useFetcher();
