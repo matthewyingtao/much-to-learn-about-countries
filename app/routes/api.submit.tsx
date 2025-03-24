@@ -22,6 +22,8 @@ export async function action({ request }: Route.ActionArgs) {
 
 	if (trivia) {
 		return Response.json({
+			country,
+			suggestion,
 			pass: trivia.pass,
 			response: trivia.response,
 		});
