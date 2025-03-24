@@ -11,7 +11,7 @@ export default function Map({
 			stroke="black"
 			strokeLinecap="round"
 			strokeLinejoin="round"
-			strokeWidth=".2"
+			strokeWidth=".3"
 			version="1.2"
 			viewBox="0 0 2000 857"
 			className="h-full w-full"
@@ -21,8 +21,8 @@ export default function Map({
 				<path
 					key={path}
 					d={path}
-					fill={highlightCountry === name ? "red" : "white"}
-					stroke={highlightCountry === name ? "red" : "black"}
+					fill={highlightCountry === name ? "#AF94E6" : "black"}
+					stroke={highlightCountry === name ? "#4254A0" : "white"}
 				/>
 			))}
 		</svg>
