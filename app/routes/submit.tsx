@@ -1,14 +1,9 @@
 import OpenAI from "openai";
 import { zodResponseFormat } from "openai/helpers/zod.mjs";
-import { z } from "zod";
 import { systemPrompt } from "~/data/prompts";
 import { db } from "~/shared/db";
+import { CountryResponse } from "~/shared/zodTypes";
 import type { Route } from "./+types/submit";
-
-const countryResponse = z.object({
-	pass: z.boolean(),
-	response: z.string(),
-});
 
 export async function action({ request }: Route.ActionArgs) {
 	const formData = await request.formData();
@@ -26,8 +21,6 @@ export async function action({ request }: Route.ActionArgs) {
 	});
 
 	if (trivia) {
-		console.log("Found trivia in database");
-
 		return Response.json({
 			pass: trivia.pass,
 			response: trivia.response,
@@ -47,12 +40,12 @@ export async function action({ request }: Route.ActionArgs) {
 				content: `The country is '${country}' and the suggestion is '${suggestion}'`,
 			},
 		],
-		response_format: zodResponseFormat(countryResponse, "event"),
+		response_format: zodResponseFormat(CountryResponse, "event"),
 	});
 
 	const res = JSON.parse(completion.choices[0].message.content!);
 
-	const parsedRes = countryResponse.parse(res);
+	const parsedRes = CountryResponse.parse(res);
 
 	const countryObj = await db.country.findFirst({
 		where: {
@@ -69,5 +62,9 @@ export async function action({ request }: Route.ActionArgs) {
 		},
 	});
 
-	return Response.json(parsedRes);
+	return Response.json({
+		country,
+		suggestion,
+		...parsedRes,
+	});
 }
