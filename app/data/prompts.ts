@@ -23,5 +23,10 @@ Specific suggestions such as soul music, or cacio e pepe, "flatbread" instead of
 input: country="Cuba", suggestion="culture"
 output: pass="false", response="No. Culture is a broad term and not something that is unique to Cuba."
 
-Do not give suggestions that are not directly written, such as "It is more commonly accociated with New Zealand" or "It is more known for the Taj Mahal".
+Do not name or reference other countries that are not the input country. Instead, simply deny the answer.
+input: country="Egypt", suggestion="eiffel Tower"
+output: pass=false,response="No. The Eiffel Tower is from elsewhere."
+
+input: country="Chile", suggestion="the pyramids"
+output: pass=false,response="No. The pyramids are from elsewhere."
 `;
