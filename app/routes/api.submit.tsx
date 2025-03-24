@@ -3,7 +3,7 @@ import { zodResponseFormat } from "openai/helpers/zod.mjs";
 import { systemPrompt } from "~/data/prompts";
 import { db } from "~/shared/db";
 import { CountryResponse } from "~/shared/zodTypes";
-import type { Route } from "./+types/submit";
+import type { Route } from "./+types/api.submit";
 
 export async function action({ request }: Route.ActionArgs) {
 	const formData = await request.formData();
