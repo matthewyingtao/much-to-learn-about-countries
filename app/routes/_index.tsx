@@ -26,7 +26,7 @@ export default function Home(_: Route.ComponentProps) {
 	const country = useStore($currentCountry);
 	const history = useStore($history);
 
-	console.log(history);
+	const [countryCount, setCountryCount] = useState(0);
 
 	useEffect(() => {
 		$currentCountry.set(randomChoice(countries));
@@ -36,6 +36,14 @@ export default function Home(_: Route.ComponentProps) {
 		if (!fetcher.data) return;
 
 		$history.set([...history, fetcher.data]);
+
+		if (!fetcher.data.pass && countryCount < 2)
+			setCountryCount((prev) => prev + 1);
+
+		if (countryCount >= 2) {
+			$currentCountry.set(randomChoice(countries));
+			setCountryCount(0);
+		}
 	}, [fetcher.data]);
 
 	return (
@@ -53,8 +61,8 @@ export default function Home(_: Route.ComponentProps) {
 					<span className="block text-4xl leading-[0.8] pb-4">{country}</span>
 					{/* hidden form value */}
 					<input name="country" hidden value={country} readOnly />
-					<div className="rounded-full overflow-hidden">
-						<div className="flex border border-black rounded-full overflow-hidden bg-gradient-to-b from-white to-gray-300">
+					<div className="rounded-full overflow-hidden p-1 bg-gradient-to-b from-gray-300 to-white shadow-md">
+						<div className="flex rounded-full overflow-hidden bg-gradient-to-b from-white to-gray-300">
 							<input
 								type="text"
 								name="suggestion"
@@ -65,9 +73,11 @@ export default function Home(_: Route.ComponentProps) {
 							<button
 								type="submit"
 								disabled={suggestion.length === 0}
-								className="px-6 border border-black rounded-full"
+								className="rounded-full p-1 starry-button-border"
 							>
-								Submit
+								<div className="flex items-center px-8 h-full rounded-full starry-button text-white text-sm pt-0.5">
+									Submit
+								</div>
 							</button>
 						</div>
 					</div>
@@ -76,16 +86,17 @@ export default function Home(_: Route.ComponentProps) {
 				<h3 className="text-2xl">History</h3>
 				<div className="flex flex-col space-y-4">
 					{history.map(({ country, suggestion, pass, response }, index) => (
-						<div key={index} className="flex relative gap-5 items-center">
+						<div
+							key={index}
+							className="grid grid-cols-[15ch_1fr] relative gap-5 items-center"
+						>
 							<div
-								className={`absolute -left-2 top-0 h-full w-1 rounded-full ${
+								className={`absolute -left-3 top-0 h-full w-1 rounded-full ${
 									pass ? "bg-green-300" : "bg-red-300"
 								}`}
 							/>
-							<p className="w-[15ch]">{country}</p>
-							<div>
-								<p>{response}</p>
-							</div>
+							<p className="w-[15ch] flex-1">{country}</p>
+							<p>{response}</p>
 						</div>
 					))}
 				</div>
