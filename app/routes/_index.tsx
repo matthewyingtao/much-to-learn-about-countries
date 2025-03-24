@@ -39,7 +39,7 @@ export default function Home(_: Route.ComponentProps) {
 			<Map highlightCountry="New Zealand" />
 			<div className="max-w-[300px] w-full space-y-6 px-4">
 				<h1>Much to Learn About Countries</h1>
-				<fetcher.Form action="/submit" method="post">
+				<fetcher.Form action="/api/submit" method="post">
 					<h3>Current Country</h3>
 					<span className="block">{country}</span>
 					<input name="country" hidden value={country} readOnly />
