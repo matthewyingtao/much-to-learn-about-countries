@@ -19,7 +19,7 @@ export default function Map({
 		>
 			{mapPaths.map(({ path, name }) => (
 				<path
-					key={name}
+					key={path}
 					d={path}
 					fill={highlightCountry === name ? "red" : "white"}
 					stroke={highlightCountry === name ? "red" : "black"}
