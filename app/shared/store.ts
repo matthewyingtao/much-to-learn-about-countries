@@ -1,4 +1,5 @@
 import { atom } from "nanostores";
+import { countries } from "~/data/countries";
 
 export const $history = atom<
 	{
@@ -10,3 +11,5 @@ export const $history = atom<
 >([]);
 
 export const $currentCountry = atom("");
+
+export const $countriesAvailable = atom<string[]>(countries);
