@@ -13,6 +13,7 @@
 		"@prisma/client": "6.5.0",
 		"@react-router/fs-routes": "^7.3.0",
 		"@react-router/node": "7.3.0",
+		"framer-motion": "^12.6.2",
 		"isbot": "^5.1.17",
 		"nanostores": "^0.11.4",
 		"openai": "^4.87.3",
