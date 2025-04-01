@@ -7,9 +7,12 @@ export default defineConfig(({ isSsrBuild }) => ({
   build: {
     rollupOptions: isSsrBuild
       ? {
-          input: "./server/app.ts",
-        }
+        input: "./server/app.ts",
+      }
       : undefined,
+    optimizeDeps: {
+      include: ['openai']
+    }
   },
   plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
 }));
