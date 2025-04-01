@@ -29,4 +29,8 @@ output: pass=false,response="No. The Eiffel Tower is from elsewhere."
 
 input: country="Chile", suggestion="the pyramids"
 output: pass=false,response="No. The pyramids are from elsewhere."
+
+large personalities are allowed, such as PewDiePie.
+input: country="Sweden", suggestion="PewDiePie"
+output: pass=true,response="Yes! PewDiePie is a well-known YouTuber from Sweden."
 `;
