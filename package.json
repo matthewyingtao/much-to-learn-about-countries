@@ -2,10 +2,8 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"build": "react-router build && node netlify/prepare.js",
-		"dev": "react-router dev",
-		"start": "netlify serve",
-		"typecheck": "react-router typegen && tsc"
+		"build": "react-router build",
+		"dev": "react-router dev"
 	},
 	"dependencies": {
 		"@floating-ui/react-dom": "^2.1.2",
@@ -26,6 +24,7 @@
 	},
 	"devDependencies": {
 		"@mjackson/node-fetch-server": "0.6.1",
+		"@netlify/vite-plugin-react-router": "^1.0.0",
 		"@react-router/dev": "^7.4.1",
 		"@tailwindcss/vite": "^4.0.17",
 		"@types/express": "^4.17.21",
