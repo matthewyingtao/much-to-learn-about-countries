@@ -10,9 +10,9 @@ export default defineConfig(({ isSsrBuild }) => ({
         input: "./server/app.ts",
       }
       : undefined,
-    optimizeDeps: {
-      include: ['openai']
-    }
+  },
+  optimizeDeps: {
+    include: ['openai']
   },
   plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
 }));
