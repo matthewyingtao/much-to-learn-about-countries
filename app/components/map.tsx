@@ -12,7 +12,7 @@ export default function Map() {
 	const country = useStore($currentCountry);
 
 	return (
-		<TransformWrapper centerOnInit={true} smooth={false}>
+		<TransformWrapper centerOnInit={true}>
 			<TransformComponent
 				wrapperStyle={{
 					height: "100%",
@@ -35,21 +35,43 @@ export default function Map() {
 					className="h-full w-full"
 					xmlns="http://www.w3.org/2000/svg"
 				>
-					{mapPaths.map(({ path, name }) => (
-						<path
-							key={path}
-							d={path}
-							name={name}
-							fill={country === name ? "#AF94E6" : "black"}
-							stroke={country === name ? "#4254A0" : "white"}
-						/>
-					))}
+					{mapPaths.map(({ name, paths }) => {
+						const highlighted = country === name;
+						const multiplePaths = paths.length > 1;
+
+						if (multiplePaths) {
+							return (
+								<g
+									key={name}
+									name={name}
+									fill={highlighted ? "#AF94E6" : "black"}
+									stroke={highlighted ? "#4254A0" : "white"}
+								>
+									{paths.map((path) => (
+										<path key={path} d={path} />
+									))}
+								</g>
+							);
+						}
+
+						return (
+							<path
+								key={name}
+								d={paths[0]}
+								name={name}
+								fill={highlighted ? "#AF94E6" : "black"}
+								stroke={highlighted ? "#4254A0" : "white"}
+							/>
+						);
+					})}
 				</svg>
 			</TransformComponent>
 		</TransformWrapper>
 	);
 }
 
+// This component has no UI. Ideally the logic should be in the Map component, but
+// it needs to be a child of TransformWrapper to get the zoomToElement function.
 function MapController() {
 	const country = useStore($currentCountry);
 	const { zoomToElement } = useControls();
@@ -61,7 +83,7 @@ function MapController() {
 			`[name="${country}"]`
 		) as HTMLElement;
 		if (countryEl) {
-			zoomToElement(countryEl, 2.5);
+			zoomToElement(countryEl, 2.5, 1500, "easeInOutCubic");
 		}
 	});
 
