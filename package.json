@@ -48,8 +48,11 @@
 	"pnpm": {
 		"onlyBuiltDependencies": [
 			"@parcel/watcher",
+			"@prisma/client",
+			"@prisma/engines",
 			"esbuild",
 			"netlify-cli",
+			"prisma",
 			"sharp",
 			"unix-dgram"
 		]
