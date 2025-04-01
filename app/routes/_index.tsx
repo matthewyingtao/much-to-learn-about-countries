@@ -1,9 +1,11 @@
 import { useStore } from "@nanostores/react";
-import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useFetcher } from "react-router";
-import Map from "~/components/map";
-import { $currentCountry, $history } from "~/shared/store";
+import HistoryDisplay from "~/components/HistoryDisplay";
+import Map from "~/components/Map";
+import ScoreDisplay from "~/components/ScoreDisplay";
+import SuggestionForm from "~/components/SuggestionForm";
+import { $history } from "~/shared/store";
 import { assignRandomCountry } from "~/shared/utils";
 import pattern from "../assets/dots.png";
 import type { Route } from "./+types/_index";
@@ -21,9 +23,7 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home(_: Route.ComponentProps) {
 	const fetcher = useFetcher();
-	const [suggestion, setSuggestion] = useState("");
 
-	const country = useStore($currentCountry);
 	const history = useStore($history);
 
 	const [overallScore, setOverallScore] = useState(0);
@@ -74,135 +74,12 @@ export default function Home(_: Route.ComponentProps) {
 				<h1 className="text-4xl mb-6 w-[15ch]">
 					Much to Learn About Countries
 				</h1>
-				<fetcher.Form
-					action="/api/submit"
-					method="post"
-					onSubmit={() => setSuggestion("")}
-					className="mb-4"
-				>
-					<motion.h3 className="text-2xl">Current Country</motion.h3>
-					<motion.span
-						initial={{ opacity: 0, y: -8 }}
-						animate={{ opacity: 1, y: 0 }}
-						key={country}
-						transition={{
-							type: "spring",
-							bounce: 0,
-							duration: 0.5,
-						}}
-						className="block text-4xl leading-[0.8] pb-4"
-					>
-						{country}
-					</motion.span>
-					{/* hidden form value */}
-					<input name="country" hidden value={country} readOnly />
-					<div className="rounded-full overflow-hidden p-1 bg-gradient-to-b from-gray-300 to-white shadow-md">
-						<div className="flex rounded-full overflow-hidden bg-gradient-to-b from-white to-gray-300">
-							<input
-								type="text"
-								name="suggestion"
-								className="w-full p-2"
-								value={suggestion}
-								autoComplete="off"
-								onChange={(e) => setSuggestion(e.target.value)}
-							/>
-							<button
-								type="submit"
-								disabled={suggestion.length === 0}
-								className="rounded-full p-1 starry-button-border"
-							>
-								<div className="flex items-center px-8 h-full rounded-full starry-button text-white text-sm pt-0.5">
-									Submit
-								</div>
-							</button>
-						</div>
-					</div>
-				</fetcher.Form>
+				<SuggestionForm fetcher={fetcher} />
 				<ScoreDisplay attempts={attempts} />
 				<h1 className="text-4xl mb-6 w-[15ch]">Score: {overallScore}</h1>
 				<button onClick={skip}>skip</button>
-				<h3 className="text-2xl mb-4">History</h3>
 				<HistoryDisplay history={history} />
 			</div>
 		</main>
-	);
-}
-
-function HistoryDisplay({
-	history,
-}: {
-	history: {
-		country: string;
-		suggestion: string;
-		pass: boolean;
-		response: string;
-	}[];
-}) {
-	return (
-		<motion.div className="flex flex-col-reverse gap-y-4">
-			{history.map(({ country, suggestion, pass, response }, index) => (
-				<motion.div
-					layout
-					key={index}
-					className="grid grid-cols-[15ch_1fr] relative gap-6 items-center"
-					initial={{ opacity: 0, y: 8 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{
-						type: "spring",
-						bounce: 0,
-						duration: 0.5,
-					}}
-				>
-					<div
-						className={`absolute -left-3 top-0 h-full w-1 rounded-full ${
-							pass ? "bg-green-300" : "bg-red-300"
-						}`}
-					/>
-					<p className="w-[15ch] flex-1">{country}</p>
-					<p>{response}</p>
-				</motion.div>
-			))}
-		</motion.div>
-	);
-}
-
-function ScoreDisplay({ attempts }: { attempts: boolean[] }) {
-	const totalAttempts = attempts.length;
-	const attemptsPadded: (boolean | undefined)[] =
-		attempts.length < 5
-			? [...attempts, ...Array(5 - attempts.length).fill(undefined)]
-			: attempts;
-
-	return (
-		<div className="flex gap-1 mb-6">
-			{attemptsPadded.map((attempt) => {
-				const gradientTable = {
-					pass: "from-[#C1E694] to-[#42A050]",
-					fail: "from-[#E69494] to-[#A04242]",
-					unattempted: "from-[#F8F8F8] to-[#E1E1E1]",
-				};
-
-				let gradientClass: string = "";
-
-				if (attempt === true) {
-					gradientClass = gradientTable.pass;
-				} else if (attempt === false) {
-					gradientClass = gradientTable.fail;
-				} else {
-					gradientClass = gradientTable.unattempted;
-				}
-
-				return (
-					// TODO: figure out a sensible key
-					<div
-						className={`grid place-items-center bg-gradient-to-t p-[2px] rounded-full overflow-clip ${gradientClass}`}
-					>
-						<div
-							className={`bg-gradient-to-b h-4 w-4 rounded-full ${gradientClass}`}
-						/>
-					</div>
-				);
-			})}
-		</div>
 	);
 }

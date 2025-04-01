@@ -1,0 +1,40 @@
+import { motion } from "framer-motion";
+
+export default function HistoryDisplay({
+	history,
+}: {
+	history: {
+		country: string;
+		suggestion: string;
+		pass: boolean;
+		response: string;
+	}[];
+}) {
+	return (
+		<motion.div className="flex flex-col-reverse gap-y-4">
+			{history.map(({ country, suggestion, pass, response }, index) => (
+				<motion.div
+					layout
+					key={index}
+					className="grid grid-cols-[15ch_1fr] relative gap-6 items-center"
+					initial={{ opacity: 0, y: 8 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{
+						type: "spring",
+						bounce: 0,
+						duration: 0.5,
+					}}
+				>
+					<div
+						className={`absolute -left-3 top-0 h-full w-1 rounded-full ${
+							pass ? "bg-green-300" : "bg-red-300"
+						}`}
+					/>
+					<p className="w-[15ch] flex-1">{country}</p>
+					<p>{response}</p>
+				</motion.div>
+			))}
+			<h3 className="text-2xl">History</h3>
+		</motion.div>
+	);
+}
