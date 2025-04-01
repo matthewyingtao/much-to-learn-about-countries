@@ -6,10 +6,17 @@ import {
 	useControls,
 } from "react-zoom-pan-pinch";
 import { mapPaths } from "~/data/countries";
-import { $currentCountry } from "~/shared/store";
+import { $countriesCompleted, $currentCountry } from "~/shared/store";
+
+const fillTable = {
+	complete: "#C1E694",
+	incomplete: "black",
+	selected: "#AF94E6",
+};
 
 export default function Map() {
 	const country = useStore($currentCountry);
+	const completed = useStore($countriesCompleted);
 
 	return (
 		<TransformWrapper centerOnInit={true}>
@@ -36,17 +43,18 @@ export default function Map() {
 					xmlns="http://www.w3.org/2000/svg"
 				>
 					{mapPaths.map(({ name, paths }) => {
-						const highlighted = country === name;
+						const isSelected = country === name;
+						const isCompleted = completed.includes(name);
+
 						const multiplePaths = paths.length > 1;
+
+						let fillColor = fillTable.incomplete;
+						if (isSelected) fillColor = fillTable.selected;
+						if (isCompleted) fillColor = fillTable.complete;
 
 						if (multiplePaths) {
 							return (
-								<g
-									key={name}
-									name={name}
-									fill={highlighted ? "#AF94E6" : "black"}
-									stroke={highlighted ? "#4254A0" : "white"}
-								>
+								<g key={name} name={name} fill={fillColor} stroke="white">
 									{paths.map((path) => (
 										<path key={path} d={path} />
 									))}
@@ -59,8 +67,8 @@ export default function Map() {
 								key={name}
 								d={paths[0]}
 								name={name}
-								fill={highlighted ? "#AF94E6" : "black"}
-								stroke={highlighted ? "#4254A0" : "white"}
+								fill={fillColor}
+								stroke="white"
 							/>
 						);
 					})}

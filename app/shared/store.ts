@@ -13,3 +13,4 @@ export const $history = atom<
 export const $currentCountry = atom("");
 
 export const $countriesAvailable = atom<string[]>(countries);
+export const $countriesCompleted = atom<string[]>([]);
