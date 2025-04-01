@@ -49,20 +49,20 @@ export async function action({ request }: Route.ActionArgs) {
 
 	const parsedRes = CountryResponse.parse(res);
 
-	const countryObj = await db.country.findFirst({
-		where: {
-			name: country,
-		},
-	});
+	const url = new URL("/api/save", request.url).toString();
 
-	const newTrivia = await db.trivia.create({
-		data: {
-			countryId: countryObj?.id!,
-			userSuggestion: suggestion,
+	// save trivia to the database
+	fetch(url, {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({
+			country,
+			suggestion,
 			pass: parsedRes.pass,
 			response: parsedRes.response,
-		},
-	});
+			secretKey: process.env.SECRET_KEY,
+		}),
+	}).catch(console.error);
 
 	return Response.json({
 		country,
