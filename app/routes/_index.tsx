@@ -2,7 +2,7 @@ import { useStore } from "@nanostores/react";
 import { useEffect, useState } from "react";
 import { useFetcher } from "react-router";
 import HistoryDisplay from "~/components/HistoryDisplay";
-import Map from "~/components/Map";
+import MapDisplay from "~/components/MapDisplay";
 import ScoreDisplay from "~/components/ScoreDisplay";
 import SuggestionForm from "~/components/SuggestionForm";
 import { $history } from "~/shared/store";
@@ -64,7 +64,7 @@ export default function Home(_: Route.ComponentProps) {
 
 	return (
 		<main className="grid grid-cols-[1fr_55ch] h-screen">
-			<Map />
+			<MapDisplay />
 			<div className="relative max-h-screen overflow-y-scroll px-8 py-4 border-l border-black text-[#616161]">
 				<img
 					src={pattern}

@@ -14,7 +14,7 @@ const fillTable = {
 	selected: "#AF94E6",
 };
 
-export default function Map() {
+export default function MapDisplay() {
 	const country = useStore($currentCountry);
 	const completed = useStore($countriesCompleted);
 
