@@ -1,5 +1,5 @@
 import OpenAI from "openai";
-import { zodResponseFormat } from "openai/helpers/zod.mjs";
+import { zodResponseFormat } from "openai/helpers/zod";
 import { systemPrompt } from "~/data/prompts";
 import { db } from "~/shared/db";
 import { CountryResponse } from "~/shared/zodTypes";
