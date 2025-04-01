@@ -142,7 +142,7 @@ function HistoryDisplay({
 		<motion.div className="flex flex-col-reverse gap-y-4">
 			{history.map(({ country, suggestion, pass, response }, index) => (
 				<motion.div
-					layout5
+					layout
 					key={index}
 					className="grid grid-cols-[15ch_1fr] relative gap-6 items-center"
 					initial={{ opacity: 0, y: 8 }}
@@ -193,6 +193,7 @@ function ScoreDisplay({ attempts }: { attempts: boolean[] }) {
 				}
 
 				return (
+					// TODO: figure out a sensible key
 					<div
 						className={`grid place-items-center bg-gradient-to-t p-[2px] rounded-full overflow-clip ${gradientClass}`}
 					>
