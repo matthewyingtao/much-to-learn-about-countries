@@ -5,6 +5,13 @@ export async function action({ request }: Route.ActionArgs) {
 	const { country, suggestion, pass, response, secretKey } =
 		await request.json();
 
+	if (secretKey !== process.env.SECRET_KEY) {
+		return Response.json(
+			{ success: false, error: "Invalid secret key" },
+			{ status: 401 }
+		);
+	}
+
 	const countryRecord = await db.country.findFirst({
 		where: { name: country },
 	});
