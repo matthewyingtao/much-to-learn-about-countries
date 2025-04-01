@@ -2,8 +2,9 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"build": "react-router build",
-		"dev": "react-router dev"
+		"build": "prisma generate && react-router build",
+		"dev": "react-router dev",
+		"postinstall": "prisma generate"
 	},
 	"dependencies": {
 		"@floating-ui/react-dom": "^2.1.2",
