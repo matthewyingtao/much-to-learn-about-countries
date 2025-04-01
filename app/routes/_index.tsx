@@ -1,4 +1,5 @@
 import { useStore } from "@nanostores/react";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useFetcher } from "react-router";
 import Map from "~/components/map";
@@ -79,8 +80,20 @@ export default function Home(_: Route.ComponentProps) {
 					onSubmit={() => setSuggestion("")}
 					className="mb-4"
 				>
-					<h3 className="text-2xl">Current Country</h3>
-					<span className="block text-4xl leading-[0.8] pb-4">{country}</span>
+					<motion.h3 className="text-2xl">Current Country</motion.h3>
+					<motion.span
+						initial={{ opacity: 0, y: -8 }}
+						animate={{ opacity: 1, y: 0 }}
+						key={country}
+						transition={{
+							type: "spring",
+							bounce: 0,
+							duration: 0.5,
+						}}
+						className="block text-4xl leading-[0.8] pb-4"
+					>
+						{country}
+					</motion.span>
 					{/* hidden form value */}
 					<input name="country" hidden value={country} readOnly />
 					<div className="rounded-full overflow-hidden p-1 bg-gradient-to-b from-gray-300 to-white shadow-md">
@@ -90,6 +103,7 @@ export default function Home(_: Route.ComponentProps) {
 								name="suggestion"
 								className="w-full p-2"
 								value={suggestion}
+								autoComplete="off"
 								onChange={(e) => setSuggestion(e.target.value)}
 							/>
 							<button
@@ -104,31 +118,51 @@ export default function Home(_: Route.ComponentProps) {
 						</div>
 					</div>
 				</fetcher.Form>
-
 				<ScoreDisplay attempts={attempts} />
-
 				<h1 className="text-4xl mb-6 w-[15ch]">Score: {overallScore}</h1>
 				<button onClick={skip}>skip</button>
-
 				<h3 className="text-2xl mb-4">History</h3>
-				<div className="flex flex-col-reverse gap-y-4">
-					{history.map(({ country, suggestion, pass, response }, index) => (
-						<div
-							key={index}
-							className="grid grid-cols-[15ch_1fr] relative gap-6 items-center"
-						>
-							<div
-								className={`absolute -left-3 top-0 h-full w-1 rounded-full ${
-									pass ? "bg-green-300" : "bg-red-300"
-								}`}
-							/>
-							<p className="w-[15ch] flex-1">{country}</p>
-							<p>{response}</p>
-						</div>
-					))}
-				</div>
+				<HistoryDisplay history={history} />
 			</div>
 		</main>
+	);
+}
+
+function HistoryDisplay({
+	history,
+}: {
+	history: {
+		country: string;
+		suggestion: string;
+		pass: boolean;
+		response: string;
+	}[];
+}) {
+	return (
+		<motion.div className="flex flex-col-reverse gap-y-4">
+			{history.map(({ country, suggestion, pass, response }, index) => (
+				<motion.div
+					layout5
+					key={index}
+					className="grid grid-cols-[15ch_1fr] relative gap-6 items-center"
+					initial={{ opacity: 0, y: 8 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{
+						type: "spring",
+						bounce: 0,
+						duration: 0.5,
+					}}
+				>
+					<div
+						className={`absolute -left-3 top-0 h-full w-1 rounded-full ${
+							pass ? "bg-green-300" : "bg-red-300"
+						}`}
+					/>
+					<p className="w-[15ch] flex-1">{country}</p>
+					<p>{response}</p>
+				</motion.div>
+			))}
+		</motion.div>
 	);
 }
 
