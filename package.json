@@ -2,7 +2,7 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"build": "react-router build && node netlify/prepare.js",
+		"build": "react-router build && node netlify/prepare.js && node netlify/after-build.js",
 		"dev": "react-router dev",
 		"start": "netlify serve",
 		"typecheck": "react-router typegen && tsc"
