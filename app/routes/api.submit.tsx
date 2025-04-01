@@ -47,21 +47,14 @@ export async function action({ request }: Route.ActionArgs) {
 				name: "country_response",
 				strict: true,
 				schema: {
-					type: "json_schema",
-					json_schema: {
-						name: "country_response",
-						strict: true,
-						schema: {
-							type: "object",
-							properties: {
-								pass: { type: "boolean" },
-								response: { type: "string" },
-							},
-							required: ["pass", "response"],
-							additionalProperties: false,
-							$schema: "http://json-schema.org/draft-07/schema#",
-						},
+					type: "object",
+					properties: {
+						pass: { type: "boolean" },
+						response: { type: "string" },
 					},
+					required: ["pass", "response"],
+					additionalProperties: false,
+					$schema: "http://json-schema.org/draft-07/schema#",
 				},
 			},
 		},
