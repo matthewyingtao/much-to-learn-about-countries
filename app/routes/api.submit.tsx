@@ -1,5 +1,4 @@
 import OpenAI from "openai";
-import { zodTextFormat } from "openai/helpers/zod";
 import { systemPrompt } from "~/data/prompts";
 import { db } from "~/shared/db";
 import { CountryResponse } from "~/shared/zodTypes";
@@ -42,8 +41,29 @@ export async function action({ request }: Route.ActionArgs) {
 				content: `The country is '${country}' and the suggestion is '${suggestion}'`,
 			},
 		],
-		text: {
-			format: zodTextFormat(CountryResponse, "event"),
+		response_format: {
+			type: "json_schema",
+			json_schema: {
+				name: "country_response",
+				strict: true,
+				schema: {
+					type: "json_schema",
+					json_schema: {
+						name: "country_response",
+						strict: true,
+						schema: {
+							type: "object",
+							properties: {
+								pass: { type: "boolean" },
+								response: { type: "string" },
+							},
+							required: ["pass", "response"],
+							additionalProperties: false,
+							$schema: "http://json-schema.org/draft-07/schema#",
+						},
+					},
+				},
+			},
 		},
 	});
 
