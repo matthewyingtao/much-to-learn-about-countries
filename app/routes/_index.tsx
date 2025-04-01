@@ -64,7 +64,7 @@ export default function Home(_: Route.ComponentProps) {
 
 	return (
 		<main className="grid grid-cols-[1fr_55ch] h-screen">
-			<Map highlightCountry={country} />
+			<Map />
 			<div className="relative max-h-screen overflow-y-scroll px-8 py-4 border-l border-black text-[#616161]">
 				<img
 					src={pattern}

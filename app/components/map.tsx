@@ -8,11 +8,9 @@ import {
 import { mapPaths } from "~/data/countries";
 import { $currentCountry } from "~/shared/store";
 
-export default function Map({
-	highlightCountry,
-}: {
-	highlightCountry: string;
-}) {
+export default function Map() {
+	const country = useStore($currentCountry);
+
 	return (
 		<TransformWrapper centerOnInit={true} smooth={false}>
 			<TransformComponent
@@ -42,8 +40,8 @@ export default function Map({
 							key={path}
 							d={path}
 							name={name}
-							fill={highlightCountry === name ? "#AF94E6" : "black"}
-							stroke={highlightCountry === name ? "#4254A0" : "white"}
+							fill={country === name ? "#AF94E6" : "black"}
+							stroke={country === name ? "#4254A0" : "white"}
 						/>
 					))}
 				</svg>
