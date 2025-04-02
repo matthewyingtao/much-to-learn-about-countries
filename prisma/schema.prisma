@@ -3,12 +3,12 @@ generator client {
 }
 
 datasource db {
-  provider = "cockroachdb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model Country {
-  id     Int      @id @default(sequence())
+  id     Int      @id @default(autoincrement())
   name   String
   trivia Trivia[]
 }
