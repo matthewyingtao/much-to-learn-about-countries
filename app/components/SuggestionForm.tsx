@@ -51,7 +51,7 @@ export default function SuggestionForm({
 						disabled={suggestion.length === 0}
 						className="rounded-full p-1 starry-button-border"
 					>
-						<div className="flex items-center px-8 h-full rounded-full starry-button text-white text-sm pt-0.5">
+						<div className="flex items-center py-2 px-8 h-full rounded-full starry-button text-white text-sm leading-none">
 							Submit
 						</div>
 					</button>
