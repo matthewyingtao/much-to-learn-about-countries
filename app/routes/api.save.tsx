@@ -8,7 +8,7 @@ export async function action({ request }: Route.ActionArgs) {
 	if (secretKey !== process.env.SECRET_KEY) {
 		return Response.json(
 			{ success: false, error: "Invalid secret key" },
-			{ status: 401 }
+			{ status: 401 },
 		);
 	}
 
@@ -19,7 +19,7 @@ export async function action({ request }: Route.ActionArgs) {
 	if (!countryRecord) {
 		return Response.json(
 			{ success: false, error: "Country not found" },
-			{ status: 400 }
+			{ status: 400 },
 		);
 	}
 

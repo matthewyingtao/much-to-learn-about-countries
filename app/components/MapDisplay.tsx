@@ -88,7 +88,7 @@ function MapController() {
 		if (!country) return;
 
 		const countryEl = document.querySelector(
-			`[name="${country}"]`
+			`[name="${country}"]`,
 		) as HTMLElement;
 
 		zoomToElement(countryEl, 2.5, 1000, "easeInOutCubic");

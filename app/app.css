@@ -1,25 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-	--font-sans: "PP Mori", ui-sans-serif, system-ui, sans-serif,
-		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--font-sans:
+		"PP Mori", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+		"Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 .starry-button {
-	background: radial-gradient(
-			circle at bottom center,
-			#dddfff,
-			rgba(255, 255, 255, 0)
-		),
+	background:
+		radial-gradient(circle at bottom center, #dddfff, rgba(255, 255, 255, 0)),
 		linear-gradient(to bottom, #4254a0, #af94e6);
 }
 
 .starry-button-border {
-	background: radial-gradient(
-			circle at bottom center,
-			#dddfff,
-			rgba(255, 255, 255, 0)
-		),
+	background:
+		radial-gradient(circle at bottom center, #dddfff, rgba(255, 255, 255, 0)),
 		linear-gradient(to top, hsl(229, 42%, 55%), hsl(260, 62%, 80%));
 }
 

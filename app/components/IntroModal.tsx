@@ -25,18 +25,18 @@ export default function IntroModal({
 			onClick={(e) => {
 				if (e.target === ref.current) closeCallback();
 			}}
-			className="backdrop:bg-black/50 fixed inset-0 m-auto bg-transparent text-[#616161]"
+			className="fixed inset-0 m-auto bg-transparent text-[#616161] backdrop:bg-black/50"
 		>
 			<div
 				onClick={(e) => e.stopPropagation()}
-				className="bg-white relative isolate p-6 rounded-2xl overflow-clip max-w-lg"
+				className="relative isolate max-w-lg overflow-clip rounded-2xl bg-white p-6"
 			>
 				<img
 					src={pattern}
 					alt=""
-					className="absolute top-0 left-0 w-full -z-10 pointer-events-none"
+					className="pointer-events-none absolute top-0 left-0 -z-10 w-full"
 				/>
-				<h1 className="text-4xl mb-6 w-[15ch]">
+				<h1 className="mb-6 w-[15ch] text-4xl">
 					Much to Learn About Countries
 				</h1>
 				<p className="mb-2">
@@ -53,9 +53,9 @@ export default function IntroModal({
 				</p>
 				<button
 					onClick={closeCallback}
-					className="rounded-full p-1 starry-button-border cursor-pointer"
+					className="starry-button-border cursor-pointer rounded-full p-1"
 				>
-					<div className="flex items-center py-2 px-8 h-full rounded-full starry-button text-white text-sm leading-none">
+					<div className="starry-button flex h-full items-center rounded-full px-8 py-2 text-sm leading-none text-white">
 						Close
 					</div>
 				</button>

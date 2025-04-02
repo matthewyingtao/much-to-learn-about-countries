@@ -30,14 +30,14 @@ export default function SuggestionForm({
 					bounce: 0,
 					duration: 0.5,
 				}}
-				className="block text-4xl leading-[0.8] pb-4"
+				className="block pb-4 text-4xl leading-[0.8]"
 			>
 				{country}
 			</motion.span>
 			{/* hidden form value */}
 			<input name="country" hidden value={country} readOnly />
-			<div className="rounded-full overflow-hidden p-1 bg-gradient-to-b from-gray-300 to-white shadow-md">
-				<div className="flex rounded-full overflow-hidden bg-gradient-to-b from-white to-gray-300">
+			<div className="overflow-hidden rounded-full bg-gradient-to-b from-gray-300 to-white p-1 shadow-md">
+				<div className="flex overflow-hidden rounded-full bg-gradient-to-b from-white to-gray-300">
 					<input
 						type="text"
 						name="suggestion"
@@ -49,9 +49,9 @@ export default function SuggestionForm({
 					<button
 						type="submit"
 						disabled={suggestion.length === 0}
-						className="rounded-full p-1 starry-button-border cursor-pointer"
+						className="starry-button-border cursor-pointer rounded-full p-1"
 					>
-						<div className="flex items-center py-2 px-8 h-full rounded-full starry-button text-white text-sm leading-none">
+						<div className="starry-button flex h-full items-center rounded-full px-8 py-2 text-sm leading-none text-white">
 							Submit
 						</div>
 					</button>

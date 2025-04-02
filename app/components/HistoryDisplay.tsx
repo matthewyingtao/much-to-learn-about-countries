@@ -16,7 +16,7 @@ export default function HistoryDisplay({
 				<motion.div
 					layout
 					key={index}
-					className="grid grid-cols-[15ch_1fr] relative gap-6 items-center"
+					className="relative grid grid-cols-[15ch_1fr] items-center gap-6"
 					initial={{ opacity: 0, y: 8 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{
@@ -26,7 +26,7 @@ export default function HistoryDisplay({
 					}}
 				>
 					<div
-						className={`absolute -left-3 top-0 h-full w-1 rounded-full ${
+						className={`absolute top-0 -left-3 h-full w-1 rounded-full ${
 							pass ? "bg-green-300" : "bg-red-300"
 						}`}
 					/>

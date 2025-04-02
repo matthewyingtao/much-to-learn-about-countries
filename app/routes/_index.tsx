@@ -66,21 +66,21 @@ export default function Home(_: Route.ComponentProps) {
 	}
 
 	return (
-		<main className="grid grid-cols-[1fr_55ch] h-screen">
+		<main className="grid h-screen grid-cols-[1fr_55ch]">
 			<MapDisplay />
-			<div className="relative max-h-screen overflow-y-scroll px-8 py-4 border-l border-black text-[#616161]">
+			<div className="relative max-h-screen overflow-y-scroll border-l border-black px-8 py-4 text-[#616161]">
 				<img
 					src={pattern}
 					alt=""
-					className="absolute top-0 left-0 w-full -z-10 pointer-events-none"
+					className="pointer-events-none absolute top-0 left-0 -z-10 w-full"
 				/>
-				<h1 className="text-4xl mb-6 w-[15ch]">
+				<h1 className="mb-6 w-[15ch] text-4xl">
 					Much to Learn About Countries
 				</h1>
 				<IntroModal open={modal} closeCallback={() => setModal(false)} />
 				<SuggestionForm fetcher={fetcher} />
 				<ScoreDisplay attempts={attempts} />
-				<h1 className="text-4xl mb-6 w-[15ch]">Score: {overallScore}</h1>
+				<h1 className="mb-6 w-[15ch] text-4xl">Score: {overallScore}</h1>
 				<button onClick={skip}>skip</button>
 				<HistoryDisplay history={history} />
 			</div>
