@@ -1,21 +1,28 @@
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from '@prisma/extension-accelerate';
 
-let db;
+
+function getExtendedClient() {
+	return new PrismaClient().$extends(withAccelerate());
+}
+
+type ExtendedPrismaClient = ReturnType<typeof getExtendedClient>
+
+let db: ExtendedPrismaClient;
 
 declare global {
-	var __db__: any;
+	var __db__: ExtendedPrismaClient;
 }
 
 if (process.env.NODE_ENV === "production") {
-	db = new PrismaClient().$extends(withAccelerate());
+	db = getExtendedClient();
 } else {
 	if (!global.__db__) {
-		global.__db__ = new PrismaClient().$extends(withAccelerate());
+		global.__db__ = getExtendedClient();
 	}
 	db = global.__db__;
-	db.$connect();
 }
+
 
 export { db };
 
