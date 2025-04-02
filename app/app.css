@@ -22,3 +22,48 @@
 		),
 		linear-gradient(to top, hsl(229, 42%, 55%), hsl(260, 62%, 80%));
 }
+
+/* enable transitions */
+[popover],
+dialog,
+::backdrop {
+	transition-property: display, overlay, opacity, transform;
+	transition-duration: 0.25s;
+	transition-timing-function: ease-in-out;
+	transition-behavior: allow-discrete;
+	opacity: 0;
+}
+
+/* On Stage */
+:popover-open,
+:popover-open::backdrop,
+[open],
+[open]::backdrop {
+	opacity: 1;
+}
+
+/* Off Stage */
+@starting-style {
+	:popover-open,
+	:popover-open::backdrop,
+	[open],
+	[open]::backdrop {
+		opacity: 0;
+	}
+}
+
+dialog {
+	transform: scale(0.95) translateY(1rem);
+}
+
+/* On Stage */
+dialog[open] {
+	transform: scale(1) translateY(0);
+}
+
+/* Off Stage */
+@starting-style {
+	dialog[open] {
+		transform: scale(0.95) translateY(1rem);
+	}
+}

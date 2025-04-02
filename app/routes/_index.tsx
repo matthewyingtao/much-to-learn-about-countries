@@ -2,6 +2,7 @@ import { useStore } from "@nanostores/react";
 import { useEffect, useState } from "react";
 import { useFetcher } from "react-router";
 import HistoryDisplay from "~/components/HistoryDisplay";
+import IntroModal from "~/components/IntroModal";
 import MapDisplay from "~/components/MapDisplay";
 import ScoreDisplay from "~/components/ScoreDisplay";
 import SuggestionForm from "~/components/SuggestionForm";
@@ -31,6 +32,8 @@ export default function Home(_: Route.ComponentProps) {
 
 	const totalAttempts = attempts.length;
 	const currentScore = attempts.filter((item) => item).length;
+
+	const [modal, setModal] = useState(true);
 
 	useEffect(() => {
 		assignRandomCountry();
@@ -74,6 +77,7 @@ export default function Home(_: Route.ComponentProps) {
 				<h1 className="text-4xl mb-6 w-[15ch]">
 					Much to Learn About Countries
 				</h1>
+				<IntroModal open={modal} closeCallback={() => setModal(false)} />
 				<SuggestionForm fetcher={fetcher} />
 				<ScoreDisplay attempts={attempts} />
 				<h1 className="text-4xl mb-6 w-[15ch]">Score: {overallScore}</h1>
