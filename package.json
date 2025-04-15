@@ -17,7 +17,7 @@
 		"framer-motion": "^12.6.2",
 		"isbot": "^5.1.25",
 		"nanostores": "^0.11.4",
-		"openai": "^4.91.0",
+		"openai": "^4.94.0",
 		"react": "^19.1.0",
 		"react-dom": "^19.1.0",
 		"react-router": "7.4.1",
