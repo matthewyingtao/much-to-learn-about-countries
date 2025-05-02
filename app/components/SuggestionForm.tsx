@@ -7,7 +7,7 @@ import {
 	submitGuess,
 	updateGuessResponse,
 } from "~/shared/store";
-import type { CountryResponse } from "~/shared/zodTypes";
+import type { CountryResponse } from "~/shared/zodTypes.server";
 
 export default function SuggestionForm() {
 	const fetcher = useFetcher<CountryResponse>();

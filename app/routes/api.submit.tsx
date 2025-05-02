@@ -2,7 +2,7 @@ import OpenAI from "openai";
 import { href } from "react-router";
 import { systemPrompt } from "~/data/prompts.server";
 import { db } from "~/shared/db";
-import { CountryResponse } from "~/shared/zodTypes";
+import { CountryResponse } from "~/shared/zodTypes.server";
 import type { Route } from "./+types/api.submit";
 
 export async function action({ request }: Route.ActionArgs) {

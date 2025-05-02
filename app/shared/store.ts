@@ -1,7 +1,7 @@
 import { atom, computed, effect } from "nanostores";
 import { countries } from "~/data/countries";
 import { randomChoice } from "./utils";
-import type { CountryResponse } from "./zodTypes";
+import type { CountryResponse } from "./zodTypes.server";
 
 export type Guess = {
 	suggestion: string;
