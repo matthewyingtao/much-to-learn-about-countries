@@ -12,12 +12,11 @@ import { assignRandomCountry, resetAttempts } from "~/shared/utils";
 
 export default function SuggestionForm() {
 	const fetcher = useFetcher();
-	const history = useStore($history);
 
 	useEffect(() => {
 		if (!fetcher.data) return;
 
-		$history.set([...history, fetcher.data]);
+		$history.set([...$history.get().slice(0, -1), fetcher.data]);
 
 		$attempts.set([...$attempts.get(), fetcher.data.pass]);
 
@@ -46,7 +45,18 @@ export default function SuggestionForm() {
 		<fetcher.Form
 			action={href("/api/submit")}
 			method="post"
-			onSubmit={() => setSuggestion("")}
+			onSubmit={() => {
+				setSuggestion("");
+				$history.set([
+					...$history.get(),
+					{
+						country,
+						suggestion,
+						pass: null,
+						response: "Loading...",
+					},
+				]);
+			}}
 			className="mb-4"
 		>
 			<motion.h3 className="text-2xl">Current Country</motion.h3>
@@ -74,16 +84,41 @@ export default function SuggestionForm() {
 						value={suggestion}
 						autoComplete="off"
 						onChange={(e) => setSuggestion(e.target.value)}
+						required
 					/>
-					<button
+					<motion.button
 						type="submit"
-						disabled={suggestion.length === 0}
-						className="starry-button-border cursor-pointer rounded-full p-1"
+						disabled={fetcher.state !== "idle"}
+						className="starry-button-border group cursor-pointer rounded-full p-1 transition-all duration-[250ms] ease-in-out disabled:cursor-not-allowed disabled:brightness-[0.8] disabled:saturate-[0.8]"
 					>
-						<div className="starry-button flex h-full items-center rounded-full px-8 py-2 text-sm leading-none text-white">
-							Submit
+						<div className="starry-button relative flex h-full items-center rounded-full px-8 py-2 text-sm leading-none text-white transition-all duration-75 ease-in-out group-hover:inset-shadow-sm">
+							<motion.p
+								animate={{
+									opacity: fetcher.state === "idle" ? 1 : 0,
+									y: fetcher.state === "idle" ? 0 : 4,
+								}}
+								transition={{
+									type: "tween",
+									duration: 0.25,
+									ease: "easeInOut",
+								}}
+							>
+								Submit
+							</motion.p>
+							<motion.div
+								animate={{
+									opacity: fetcher.state === "submitting" ? 1 : 0,
+									y: fetcher.state === "submitting" ? 0 : 4,
+								}}
+								transition={{
+									type: "tween",
+									duration: 0.25,
+									ease: "easeInOut",
+								}}
+								className="loader absolute inset-0 m-auto"
+							></motion.div>
 						</div>
-					</button>
+					</motion.button>
 				</div>
 			</div>
 		</fetcher.Form>

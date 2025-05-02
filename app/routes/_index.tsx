@@ -26,7 +26,7 @@ export function meta({}: Route.MetaArgs) {
 	];
 }
 
-export default function Home(_: Route.ComponentProps) {
+export default function Home() {
 	useEffect(() => {
 		assignRandomCountry();
 	}, []);

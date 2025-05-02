@@ -5,7 +5,7 @@ export const $history = atom<
 	{
 		country: string;
 		suggestion: string;
-		pass: boolean;
+		pass: boolean | null;
 		response: string;
 	}[]
 >([]);
