@@ -3,42 +3,18 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { href, useFetcher } from "react-router";
 import {
-	$attempts,
 	$currentCountry,
-	$history,
-	$overallScore,
+	submitGuess,
+	updateGuessResponse,
 } from "~/shared/store";
-import { assignRandomCountry, resetAttempts } from "~/shared/utils";
+import type { CountryResponse } from "~/shared/zodTypes";
 
 export default function SuggestionForm() {
-	const fetcher = useFetcher();
+	const fetcher = useFetcher<CountryResponse>();
 
 	useEffect(() => {
 		if (!fetcher.data) return;
-
-		$history.set([...$history.get().slice(0, -1), fetcher.data]);
-
-		$attempts.set([...$attempts.get(), fetcher.data.pass]);
-
-		const attempts = $attempts.get();
-		const correctGuesses = attempts.filter((item) => item === true).length;
-		const incorrectGuesses = attempts.filter((item) => item === false).length;
-
-		// Pass: 3 correct guesses
-		if (correctGuesses >= 3) {
-			assignRandomCountry();
-			$overallScore.set($overallScore.get() + 1);
-			resetAttempts();
-			return;
-		}
-
-		// Fail: 3 incorrect guesses
-		if (incorrectGuesses >= 3) {
-			assignRandomCountry();
-			$overallScore.set(0);
-			resetAttempts();
-			return;
-		}
+		updateGuessResponse(fetcher.data);
 	}, [fetcher.data]);
 
 	const [suggestion, setSuggestion] = useState("");
@@ -50,16 +26,8 @@ export default function SuggestionForm() {
 			action={href("/api/submit")}
 			method="post"
 			onSubmit={() => {
+				submitGuess(suggestion);
 				setSuggestion("");
-				$history.set([
-					...$history.get(),
-					{
-						country,
-						suggestion,
-						pass: null,
-						response: "Loading...",
-					},
-				]);
 			}}
 			className="mb-4"
 		>
