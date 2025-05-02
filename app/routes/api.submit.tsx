@@ -1,6 +1,6 @@
 import OpenAI from "openai";
 import { href } from "react-router";
-import { systemPrompt } from "~/data/prompts";
+import { systemPrompt } from "~/data/prompts.server";
 import { db } from "~/shared/db";
 import { CountryResponse } from "~/shared/zodTypes";
 import type { Route } from "./+types/api.submit";
