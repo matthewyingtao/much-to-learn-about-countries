@@ -1,4 +1,4 @@
-import { db } from "~/shared/db";
+import { db } from "~/shared/db.server";
 import type { Route } from "./+types/api.save";
 
 export async function action({ request }: Route.ActionArgs) {
