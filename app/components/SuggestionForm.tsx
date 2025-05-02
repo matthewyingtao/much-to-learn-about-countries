@@ -20,20 +20,24 @@ export default function SuggestionForm() {
 
 		$attempts.set([...$attempts.get(), fetcher.data.pass]);
 
-		const totalAttempts = $attempts.get().length;
-		const currentScore = $attempts.get().filter((item) => item).length;
+		const attempts = $attempts.get();
+		const correctGuesses = attempts.filter((item) => item === true).length;
+		const incorrectGuesses = attempts.filter((item) => item === false).length;
 
-		// since the value doesn't update until after the render, we need to evaluate the current value
-		if (fetcher.data.pass && currentScore >= 2) {
+		// Pass: 3 correct guesses
+		if (correctGuesses >= 3) {
 			assignRandomCountry();
 			$overallScore.set($overallScore.get() + 1);
 			resetAttempts();
+			return;
 		}
 
-		if (totalAttempts >= 4) {
+		// Fail: 3 incorrect guesses
+		if (incorrectGuesses >= 3) {
 			assignRandomCountry();
 			$overallScore.set(0);
 			resetAttempts();
+			return;
 		}
 	}, [fetcher.data]);
 
