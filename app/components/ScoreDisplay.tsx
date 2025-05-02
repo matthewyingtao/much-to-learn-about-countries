@@ -13,7 +13,7 @@ export default function ScoreDisplay() {
 	return (
 		<>
 			<div className="mb-6 flex gap-1">
-				{attemptsPadded.map((attempt) => {
+				{attemptsPadded.map((attempt, i) => {
 					const gradientTable = {
 						pass: "from-[#C1E694] to-[#42A050]",
 						fail: "from-[#E69494] to-[#A04242]",
@@ -28,8 +28,8 @@ export default function ScoreDisplay() {
 						gradientClass = gradientTable.unattempted;
 					}
 					return (
-						// TODO: figure out a sensible key
 						<div
+							key={i}
 							className={`grid place-items-center overflow-clip rounded-full bg-gradient-to-t p-[2px] ${gradientClass}`}
 						>
 							<div
