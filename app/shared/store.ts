@@ -94,7 +94,7 @@ export const $overallScore = computed($history, (history) => {
 		}
 
 		if (incorrectGuesses >= 3) {
-			return prev;
+			return prev - 1;
 		}
 
 		return prev;
