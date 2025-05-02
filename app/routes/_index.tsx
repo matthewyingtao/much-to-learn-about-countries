@@ -1,13 +1,18 @@
 import { useStore } from "@nanostores/react";
 import { useEffect, useState } from "react";
 import { useFetcher } from "react-router";
+import {
+	TransformComponent,
+	TransformWrapper,
+	useControls,
+} from "react-zoom-pan-pinch";
 import HistoryDisplay from "~/components/HistoryDisplay";
 import IntroModal from "~/components/IntroModal";
 import MapDisplay from "~/components/MapDisplay";
 import ScoreDisplay from "~/components/ScoreDisplay";
 import SuggestionForm from "~/components/SuggestionForm";
 import { db } from "~/shared/db";
-import { $history } from "~/shared/store";
+import { $currentCountry, $history } from "~/shared/store";
 import { assignRandomCountry } from "~/shared/utils";
 import pattern from "../assets/dots.png";
 import type { Route } from "./+types/_index";
@@ -78,7 +83,21 @@ export default function Home(_: Route.ComponentProps) {
 	return (
 		<main className="grid h-screen md:grid-cols-[auto_minmax(min-content,55ch)]">
 			<div className="h-full w-full">
-				<MapDisplay />
+				<TransformWrapper centerOnInit={true}>
+					<TransformComponent
+						wrapperStyle={{
+							height: "100%",
+							width: "100%",
+						}}
+						contentStyle={{
+							height: "100%",
+							width: "100%",
+						}}
+					>
+						<MapController />
+						<MapDisplay />
+					</TransformComponent>
+				</TransformWrapper>
 			</div>
 			<aside className="relative max-h-screen overflow-y-scroll border-t border-[#140A29] px-4 py-4 text-[#241F2E] md:border-0 md:border-l md:px-8 md:py-8">
 				<img
@@ -98,4 +117,23 @@ export default function Home(_: Route.ComponentProps) {
 			</aside>
 		</main>
 	);
+}
+
+// This component has no UI. Ideally the logic should be in the Map component, but
+// it needs to be a child of TransformWrapper to get the zoomToElement function.
+function MapController() {
+	const country = useStore($currentCountry);
+	const { zoomToElement } = useControls();
+
+	useEffect(() => {
+		if (!country) return;
+
+		const countryEl = document.querySelector(
+			`[name="${country}"]`,
+		) as HTMLElement;
+
+		zoomToElement(countryEl, 2.5, 1000, "easeInOutCubic");
+	});
+
+	return <></>;
 }
