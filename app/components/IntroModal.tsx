@@ -1,13 +1,14 @@
+import { useStore } from "@nanostores/react";
 import { useEffect, useRef } from "react";
+import { $isIntroModalOpen } from "~/shared/store";
 import pattern from "../assets/dots.png";
 
-export default function IntroModal({
-	open,
-	closeCallback,
-}: {
-	open: boolean;
-	closeCallback: () => void;
-}) {
+const closeCallback = () => {
+	$isIntroModalOpen.set(false);
+};
+
+export default function IntroModal() {
+	const open = useStore($isIntroModalOpen);
 	const ref = useRef<HTMLDialogElement | null>(null);
 
 	useEffect(() => {

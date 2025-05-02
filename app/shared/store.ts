@@ -14,3 +14,5 @@ export const $currentCountry = atom("");
 
 export const $countriesAvailable = atom<string[]>(countries);
 export const $countriesCompleted = atom<string[]>([]);
+
+export const $isIntroModalOpen = atom(true);

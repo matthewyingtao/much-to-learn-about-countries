@@ -43,12 +43,8 @@ export default function Home(_: Route.ComponentProps) {
 	const history = useStore($history);
 
 	const [overallScore, setOverallScore] = useState(0);
+
 	const [attempts, setAttempts] = useState<boolean[]>([]);
-
-	const totalAttempts = attempts.length;
-	const currentScore = attempts.filter((item) => item).length;
-
-	const [modal, setModal] = useState(true);
 
 	useEffect(() => {
 		assignRandomCountry();
@@ -60,6 +56,9 @@ export default function Home(_: Route.ComponentProps) {
 		$history.set([...history, fetcher.data]);
 
 		setAttempts((prev) => [...prev, fetcher.data.pass]);
+
+		const totalAttempts = attempts.length;
+		const currentScore = attempts.filter((item) => item).length;
 
 		// since the value doesn't update until after the render, we need to evaluate the current value
 		if (fetcher.data.pass && currentScore >= 2) {
@@ -82,23 +81,21 @@ export default function Home(_: Route.ComponentProps) {
 
 	return (
 		<main className="grid h-screen md:grid-cols-[auto_minmax(min-content,55ch)]">
-			<div className="h-full w-full">
-				<TransformWrapper centerOnInit={true}>
-					<TransformComponent
-						wrapperStyle={{
-							height: "100%",
-							width: "100%",
-						}}
-						contentStyle={{
-							height: "100%",
-							width: "100%",
-						}}
-					>
-						<MapController />
-						<MapDisplay />
-					</TransformComponent>
-				</TransformWrapper>
-			</div>
+			<TransformWrapper centerOnInit={true}>
+				<TransformComponent
+					wrapperStyle={{
+						height: "100%",
+						width: "100%",
+					}}
+					contentStyle={{
+						height: "100%",
+						width: "100%",
+					}}
+				>
+					<MapController />
+					<MapDisplay />
+				</TransformComponent>
+			</TransformWrapper>
 			<aside className="relative max-h-screen overflow-y-scroll border-t border-[#140A29] px-4 py-4 text-[#241F2E] md:border-0 md:border-l md:px-8 md:py-8">
 				<img
 					src={pattern}
@@ -108,7 +105,7 @@ export default function Home(_: Route.ComponentProps) {
 				<h1 className="mb-6 max-w-[15ch] text-4xl">
 					Much to Learn About Countries
 				</h1>
-				<IntroModal open={modal} closeCallback={() => setModal(false)} />
+				<IntroModal />
 				<SuggestionForm fetcher={fetcher} />
 				<ScoreDisplay attempts={attempts} />
 				<h1 className="mb-6 max-w-[15ch] text-4xl">Score: {overallScore}</h1>
