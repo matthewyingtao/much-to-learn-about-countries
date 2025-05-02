@@ -10,8 +10,7 @@ import IntroModal from "~/components/IntroModal";
 import MapDisplay from "~/components/MapDisplay";
 import ScoreDisplay from "~/components/ScoreDisplay";
 import SuggestionForm from "~/components/SuggestionForm";
-import { $currentCountry } from "~/shared/store";
-import { assignRandomCountry, skip } from "~/shared/utils";
+import { $currentCountry, assignRandomCountry } from "~/shared/store";
 import pattern from "../assets/dots.webp";
 import type { Route } from "./+types/_index";
 
@@ -60,7 +59,7 @@ export default function Home() {
 				<IntroModal />
 				<SuggestionForm />
 				<ScoreDisplay />
-				<button onClick={skip}>skip</button>
+				<button onClick={assignRandomCountry}>skip</button>
 				<HistoryDisplay />
 			</aside>
 		</main>

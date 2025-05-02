@@ -1,11 +1,15 @@
 import { useStore } from "@nanostores/react";
-import { $attempts, $overallScore } from "~/shared/store";
+import {
+	$currentCountryAttempts,
+	$overallScore,
+	type Guess,
+} from "~/shared/store";
 
 export default function ScoreDisplay() {
 	const overallScore = useStore($overallScore);
-	const attempts = useStore($attempts);
+	const attempts = useStore($currentCountryAttempts);
 
-	const attemptsPadded: (boolean | undefined)[] =
+	const attemptsPadded: (Guess | undefined)[] =
 		attempts.length < 5
 			? [...attempts, ...Array(5 - attempts.length).fill(undefined)]
 			: attempts;
@@ -20,9 +24,9 @@ export default function ScoreDisplay() {
 						unattempted: "from-[#F8F8F8] to-[#E1E1E1]",
 					};
 					let gradientClass: string = "";
-					if (attempt === true) {
+					if (attempt?.pass === true) {
 						gradientClass = gradientTable.pass;
-					} else if (attempt === false) {
+					} else if (attempt?.pass === false) {
 						gradientClass = gradientTable.fail;
 					} else {
 						gradientClass = gradientTable.unattempted;
