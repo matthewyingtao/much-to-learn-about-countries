@@ -1,7 +1,7 @@
 import { useStore } from "@nanostores/react";
 import { useEffect, useRef } from "react";
 import { $isIntroModalOpen } from "~/shared/store";
-import pattern from "../assets/dots.png";
+import pattern from "../assets/dots.webp";
 
 const closeCallback = () => {
 	$isIntroModalOpen.set(false);

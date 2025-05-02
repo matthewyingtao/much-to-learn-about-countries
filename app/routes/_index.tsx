@@ -14,7 +14,7 @@ import SuggestionForm from "~/components/SuggestionForm";
 import { db } from "~/shared/db";
 import { $currentCountry, $history } from "~/shared/store";
 import { assignRandomCountry } from "~/shared/utils";
-import pattern from "../assets/dots.png";
+import pattern from "../assets/dots.webp";
 import type { Route } from "./+types/_index";
 
 export function meta({}: Route.MetaArgs) {
