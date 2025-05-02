@@ -1,15 +1,43 @@
 import { useStore } from "@nanostores/react";
 import { motion } from "framer-motion";
-import { useState } from "react";
-import type { useFetcher } from "react-router";
-import { href } from "react-router";
-import { $currentCountry } from "~/shared/store";
+import { useEffect, useState } from "react";
+import { href, useFetcher } from "react-router";
+import {
+	$attempts,
+	$currentCountry,
+	$history,
+	$overallScore,
+} from "~/shared/store";
+import { assignRandomCountry, resetAttempts } from "~/shared/utils";
 
-export default function SuggestionForm({
-	fetcher,
-}: {
-	fetcher: ReturnType<typeof useFetcher>;
-}) {
+export default function SuggestionForm() {
+	const fetcher = useFetcher();
+	const history = useStore($history);
+
+	useEffect(() => {
+		if (!fetcher.data) return;
+
+		$history.set([...history, fetcher.data]);
+
+		$attempts.set([...$attempts.get(), fetcher.data.pass]);
+
+		const totalAttempts = $attempts.get().length;
+		const currentScore = $attempts.get().filter((item) => item).length;
+
+		// since the value doesn't update until after the render, we need to evaluate the current value
+		if (fetcher.data.pass && currentScore >= 2) {
+			assignRandomCountry();
+			$overallScore.set($overallScore.get() + 1);
+			resetAttempts();
+		}
+
+		if (totalAttempts >= 4) {
+			assignRandomCountry();
+			$overallScore.set(0);
+			resetAttempts();
+		}
+	}, [fetcher.data]);
+
 	const [suggestion, setSuggestion] = useState("");
 
 	const country = useStore($currentCountry);

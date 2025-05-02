@@ -1,6 +1,5 @@
 import { useStore } from "@nanostores/react";
-import { useEffect, useState } from "react";
-import { useFetcher } from "react-router";
+import { useEffect } from "react";
 import {
 	TransformComponent,
 	TransformWrapper,
@@ -11,9 +10,8 @@ import IntroModal from "~/components/IntroModal";
 import MapDisplay from "~/components/MapDisplay";
 import ScoreDisplay from "~/components/ScoreDisplay";
 import SuggestionForm from "~/components/SuggestionForm";
-import { db } from "~/shared/db";
-import { $currentCountry, $history } from "~/shared/store";
-import { assignRandomCountry } from "~/shared/utils";
+import { $currentCountry } from "~/shared/store";
+import { assignRandomCountry, skip } from "~/shared/utils";
 import pattern from "../assets/dots.webp";
 import type { Route } from "./+types/_index";
 
@@ -28,56 +26,10 @@ export function meta({}: Route.MetaArgs) {
 	];
 }
 
-export async function loader(_: Route.LoaderArgs) {
-	// make a request to the DB to warm it up before the user starts playing
-	const firstCountry = db.country.findFirstOrThrow();
-
-	if (!firstCountry) {
-		throw new Response("No countries found", { status: 404 });
-	}
-}
-
 export default function Home(_: Route.ComponentProps) {
-	const fetcher = useFetcher();
-
-	const history = useStore($history);
-
-	const [overallScore, setOverallScore] = useState(0);
-
-	const [attempts, setAttempts] = useState<boolean[]>([]);
-
 	useEffect(() => {
 		assignRandomCountry();
 	}, []);
-
-	useEffect(() => {
-		if (!fetcher.data) return;
-
-		$history.set([...history, fetcher.data]);
-
-		setAttempts((prev) => [...prev, fetcher.data.pass]);
-
-		const totalAttempts = attempts.length;
-		const currentScore = attempts.filter((item) => item).length;
-
-		// since the value doesn't update until after the render, we need to evaluate the current value
-		if (fetcher.data.pass && currentScore >= 2) {
-			assignRandomCountry();
-			setOverallScore((prev) => prev + 1);
-			setAttempts([]);
-		}
-
-		if (totalAttempts >= 4) {
-			assignRandomCountry();
-			setOverallScore(0);
-			setAttempts([]);
-		}
-	}, [fetcher.data]);
-
-	function skip() {
-		setAttempts([]);
-		assignRandomCountry();
-	}
 
 	return (
 		<main className="grid h-screen md:grid-cols-[auto_minmax(min-content,55ch)]">
@@ -106,11 +58,10 @@ export default function Home(_: Route.ComponentProps) {
 					Much to Learn About Countries
 				</h1>
 				<IntroModal />
-				<SuggestionForm fetcher={fetcher} />
-				<ScoreDisplay attempts={attempts} />
-				<h1 className="mb-6 max-w-[15ch] text-4xl">Score: {overallScore}</h1>
+				<SuggestionForm />
+				<ScoreDisplay />
 				<button onClick={skip}>skip</button>
-				<HistoryDisplay history={history} />
+				<HistoryDisplay />
 			</aside>
 		</main>
 	);

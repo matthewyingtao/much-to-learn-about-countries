@@ -16,3 +16,7 @@ export const $countriesAvailable = atom<string[]>(countries);
 export const $countriesCompleted = atom<string[]>([]);
 
 export const $isIntroModalOpen = atom(true);
+
+export const $attempts = atom<boolean[]>([]);
+
+export const $overallScore = atom(0);

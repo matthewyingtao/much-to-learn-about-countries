@@ -1,15 +1,10 @@
+import { useStore } from "@nanostores/react";
 import { motion } from "framer-motion";
+import { $history } from "~/shared/store";
 
-export default function HistoryDisplay({
-	history,
-}: {
-	history: {
-		country: string;
-		suggestion: string;
-		pass: boolean;
-		response: string;
-	}[];
-}) {
+export default function HistoryDisplay() {
+	const history = useStore($history);
+
 	return (
 		<motion.div className="flex flex-col-reverse gap-y-4">
 			{history.map(({ country, suggestion, pass, response }, index) => (
