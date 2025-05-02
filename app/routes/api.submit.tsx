@@ -1,4 +1,5 @@
 import OpenAI from "openai";
+import { href } from "react-router";
 import { systemPrompt } from "~/data/prompts";
 import { db } from "~/shared/db";
 import { CountryResponse } from "~/shared/zodTypes";
@@ -8,7 +9,9 @@ export async function action({ request }: Route.ActionArgs) {
 	const formData = await request.formData();
 
 	const country = formData.get("country") as string;
-	const suggestion = (formData.get("suggestion") as string).toLowerCase();
+	const suggestion = (formData.get("suggestion") as string)
+		.toLowerCase()
+		.trim();
 
 	const trivia = await db.trivia.findFirst({
 		where: {
@@ -64,7 +67,7 @@ export async function action({ request }: Route.ActionArgs) {
 
 	const parsedRes = CountryResponse.parse(res);
 
-	const url = new URL("/api/save", request.url).toString();
+	const url = new URL(href("/api/save"), request.url).toString();
 
 	// save trivia to the database
 	fetch(url, {
