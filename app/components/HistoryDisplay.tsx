@@ -13,7 +13,7 @@ export default function HistoryDisplay() {
 
 	return (
 		<div className="flex flex-col-reverse gap-y-4">
-			{history.map(({ country, guesses }, index) => {
+			{history.map(({ country, guesses }) => {
 				// if there are no guesses, don't display the country
 				if (guesses.length === 0) return null;
 				return (
