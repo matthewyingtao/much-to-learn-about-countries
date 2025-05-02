@@ -18,12 +18,21 @@ export default function HistoryDisplay() {
 					layout="position"
 					key={index}
 					className="relative grid grid-cols-[15ch_1fr] items-center gap-6"
-					initial={{ opacity: 0, y: 8 }}
-					animate={{ opacity: 1, y: 0 }}
+					initial={{ opacity: 0, y: 8, filter: "blur(2px)" }}
+					animate={{
+						opacity: 1,
+						y: 0,
+						filter: pass === null ? "blur(2px)" : "blur(0px)",
+					}}
 					transition={{
 						type: "spring",
 						bounce: 0,
 						duration: 0.5,
+						filter: {
+							type: "tween",
+							duration: 0.25,
+							ease: "easeInOut",
+						},
 					}}
 				>
 					<motion.div
