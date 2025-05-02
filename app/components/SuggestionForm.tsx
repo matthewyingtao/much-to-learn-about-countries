@@ -2,6 +2,7 @@ import { useStore } from "@nanostores/react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import type { useFetcher } from "react-router";
+import { href } from "react-router";
 import { $currentCountry } from "~/shared/store";
 
 export default function SuggestionForm({
@@ -15,7 +16,7 @@ export default function SuggestionForm({
 
 	return (
 		<fetcher.Form
-			action="/api/submit"
+			action={href("/api/submit")}
 			method="post"
 			onSubmit={() => setSuggestion("")}
 			className="mb-4"
