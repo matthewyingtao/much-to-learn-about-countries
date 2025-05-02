@@ -10,7 +10,7 @@ import { $countriesCompleted, $currentCountry } from "~/shared/store";
 
 const fillTable = {
 	complete: "#C1E694",
-	incomplete: "black",
+	incomplete: "#140A29",
 	selected: "#AF94E6",
 };
 
@@ -33,7 +33,7 @@ export default function MapDisplay() {
 				<MapController />
 				<svg
 					fill="#ececec"
-					stroke="black"
+					stroke="#140A29"
 					strokeLinecap="round"
 					strokeLinejoin="round"
 					strokeWidth=".3"

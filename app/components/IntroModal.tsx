@@ -25,7 +25,7 @@ export default function IntroModal({
 			onClick={(e) => {
 				if (e.target === ref.current) closeCallback();
 			}}
-			className="fixed inset-0 m-auto bg-transparent text-[#616161] backdrop:bg-black/50"
+			className="fixed inset-0 m-auto bg-transparent text-[#241F2E] backdrop:bg-[#140A29]/50"
 		>
 			<div
 				onClick={(e) => e.stopPropagation()}

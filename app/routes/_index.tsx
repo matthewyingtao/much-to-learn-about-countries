@@ -6,6 +6,7 @@ import IntroModal from "~/components/IntroModal";
 import MapDisplay from "~/components/MapDisplay";
 import ScoreDisplay from "~/components/ScoreDisplay";
 import SuggestionForm from "~/components/SuggestionForm";
+import { db } from "~/shared/db";
 import { $history } from "~/shared/store";
 import { assignRandomCountry } from "~/shared/utils";
 import pattern from "../assets/dots.png";
@@ -20,6 +21,15 @@ export function meta({}: Route.MetaArgs) {
 				"How much do you know about the countries around the world? Play this game and find out!",
 		},
 	];
+}
+
+export async function loader(_: Route.LoaderArgs) {
+	// make a request to the DB to warm it up before the user starts playing
+	const firstCountry = db.country.findFirstOrThrow();
+
+	if (!firstCountry) {
+		throw new Response("No countries found", { status: 404 });
+	}
 }
 
 export default function Home(_: Route.ComponentProps) {
@@ -66,24 +76,26 @@ export default function Home(_: Route.ComponentProps) {
 	}
 
 	return (
-		<main className="grid h-screen grid-cols-[1fr_55ch]">
-			<MapDisplay />
-			<div className="relative max-h-screen overflow-y-scroll border-l border-black px-8 py-4 text-[#616161]">
+		<main className="grid h-screen md:grid-cols-[auto_minmax(min-content,55ch)]">
+			<div className="h-full w-full">
+				<MapDisplay />
+			</div>
+			<aside className="relative max-h-screen overflow-y-scroll border-t border-[#140A29] px-4 py-4 text-[#241F2E] md:border-0 md:border-l md:px-8 md:py-8">
 				<img
 					src={pattern}
 					alt=""
 					className="pointer-events-none absolute top-0 left-0 -z-10 w-full"
 				/>
-				<h1 className="mb-6 w-[15ch] text-4xl">
+				<h1 className="mb-6 max-w-[15ch] text-4xl">
 					Much to Learn About Countries
 				</h1>
 				<IntroModal open={modal} closeCallback={() => setModal(false)} />
 				<SuggestionForm fetcher={fetcher} />
 				<ScoreDisplay attempts={attempts} />
-				<h1 className="mb-6 w-[15ch] text-4xl">Score: {overallScore}</h1>
+				<h1 className="mb-6 max-w-[15ch] text-4xl">Score: {overallScore}</h1>
 				<button onClick={skip}>skip</button>
 				<HistoryDisplay history={history} />
-			</div>
+			</aside>
 		</main>
 	);
 }
