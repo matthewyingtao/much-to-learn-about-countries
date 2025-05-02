@@ -7,11 +7,7 @@ import {
 	ScrollRestoration,
 } from "react-router";
 import type { Route } from "./+types/root";
-import "./app.css";
-
-export const links: Route.LinksFunction = () => [
-	{ rel: "preload", as: "font", href: "/PPMori-Regular.woff2" },
-];
+import GlobalCSS from "./app.css?inline";
 
 export function Layout({ children }: { children: React.ReactNode }) {
 	return (
@@ -21,6 +17,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<Meta />
 				<Links />
+				<style>{GlobalCSS}</style>
 			</head>
 			<body>
 				{children}
