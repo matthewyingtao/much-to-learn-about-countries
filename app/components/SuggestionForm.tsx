@@ -52,7 +52,7 @@ export default function SuggestionForm() {
 					<input
 						type="text"
 						name="suggestion"
-						className="w-full p-2"
+						className="w-full rounded-full p-2 outline-current"
 						value={suggestion}
 						autoComplete="off"
 						onChange={(e) => setSuggestion(e.target.value)}

@@ -37,7 +37,7 @@ export default function IntroModal() {
 					alt=""
 					className="pointer-events-none absolute top-0 left-0 -z-10 w-full"
 				/>
-				<h1 className="mb-6 w-[15ch] text-4xl">
+				<h1 className="mb-6 w-[15ch] text-4xl leading-none">
 					Much to Learn About Countries
 				</h1>
 				<p className="mb-2">
