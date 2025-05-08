@@ -90,11 +90,19 @@ function MapController() {
 		if (!country) return;
 
 		let zoomDuration = 1000;
-		const speed = 1;
+		const speed = 50;
 
 		const countryEl = document.querySelector(
 			`[name="${country}"]`,
 		) as HTMLElement;
+
+		const countryRect = countryEl.getBoundingClientRect();
+
+		const { width, height } = countryRect;
+
+		const diagonal = Math.sqrt(width * width + height * height);
+
+		const zoomScaling = Math.max(500 / diagonal, 2.5);
 
 		if (prevCountry && prevCountry !== country) {
 			console.log({
@@ -107,7 +115,6 @@ function MapController() {
 			) as HTMLElement;
 
 			const prevCountryRect = prevCountryEl.getBoundingClientRect();
-			const countryRect = countryEl.getBoundingClientRect();
 
 			const prevCountryCenterX =
 				prevCountryRect.left + prevCountryRect.width / 2;
@@ -126,7 +133,7 @@ function MapController() {
 			zoomDuration = Math.max(distance / speed, 750);
 		}
 
-		zoomToElement(countryEl, 2.5, zoomDuration, "easeInOutCubic");
+		zoomToElement(countryEl, zoomScaling, zoomDuration, "easeInOutCubic");
 	}, [country]);
 
 	return <></>;
