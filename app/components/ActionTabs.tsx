@@ -1,20 +1,15 @@
 import { useStore } from "@nanostores/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import { GiRapidshareArrow } from "react-icons/gi";
-import {
-	$countriesAvailable,
-	$history,
-	assignRandomCountry,
-} from "~/shared/store";
+import { $countriesAvailable, $history } from "~/shared/store";
 
 export default function ActionTabs() {
 	const [tab, setTab] = useState<"history" | "remainingCountries">("history");
 
 	return (
-		<div className="grid">
-			<div className="mb-8 flex justify-between gap-x-4 whitespace-nowrap">
-				<div className="flex rounded-full border border-black/20">
+		<>
+			<div className="mb-4 gap-x-4 whitespace-nowrap">
+				<div className="grid grid-cols-[auto_auto] rounded-full border border-black/20">
 					<AnimatePresence>
 						<button
 							className="relative cursor-pointer rounded-full px-4 py-2"
@@ -26,7 +21,7 @@ export default function ActionTabs() {
 									animate={{ opacity: 1, scale: 1 }}
 									exit={{ opacity: 0, scale: 0.8 }}
 									transition={{ type: "spring", bounce: 0, duration: 0.5 }}
-									className="absolute inset-0 rounded-full bg-gradient-to-b from-[#F9F9F9] to-[#E5E5E5]"
+									className="absolute inset-0 rounded-full bg-gradient-to-b from-white to-gray-300"
 								/>
 							)}
 							<span className="relative z-10">History</span>
@@ -41,27 +36,18 @@ export default function ActionTabs() {
 									animate={{ opacity: 1, scale: 1 }}
 									exit={{ opacity: 0, scale: 0.8 }}
 									transition={{ type: "spring", bounce: 0, duration: 0.5 }}
-									className="absolute inset-0 rounded-full bg-gradient-to-b from-[#F9F9F9] to-[#E5E5E5]"
+									className="absolute inset-0 rounded-full bg-gradient-to-b from-white to-gray-300"
 								/>
 							)}
 							<span className="relative z-10">Remaining Countries</span>
 						</button>
 					</AnimatePresence>
 				</div>
-
-				<button
-					className="relative flex cursor-pointer gap-2 rounded-full border border-gray-300 px-4 py-2 transition-all duration-150 ease-in-out hover:-translate-y-0.5 active:translate-y-0 active:bg-gray-50"
-					onClick={assignRandomCountry}
-				>
-					<GiRapidshareArrow size={24} />
-					<span>Skip</span>
-					<GiRapidshareArrow className="-scale-x-100" size={24} />
-				</button>
 			</div>
 
 			{tab === "history" && <HistoryDisplay />}
 			{tab === "remainingCountries" && <RemainingCountries />}
-		</div>
+		</>
 	);
 }
 const getHistoryCardColor = (pass: boolean | null) => {
@@ -92,9 +78,10 @@ function HistoryDisplay() {
 		<div className="-mt-4 flex flex-col-reverse gap-y-4">
 			{history.map(({ country, guesses }) => {
 				// if there are no guesses, don't display the country
+				if (guesses.length === 0) return null;
+
 				return (
 					<motion.div
-						layout
 						initial={{ opacity: 0, y: 8 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ type: "spring", bounce: 0, duration: 0.5 }}
@@ -106,7 +93,6 @@ function HistoryDisplay() {
 						<div className="flex flex-col-reverse gap-y-2">
 							{guesses.map(({ pass, response, suggestion }, i) => (
 								<motion.div
-									layout
 									key={`${country}-${i}`}
 									className="relative grid grid-cols-[15ch_1fr] items-center gap-6"
 									initial={{ opacity: 0, y: 8, filter: "blur(2px)" }}
