@@ -33,7 +33,7 @@ export default function SuggestionForm() {
 			}}
 			className="mb-4"
 		>
-			<div className="grid grid-cols-[auto_auto] items-start justify-between">
+			<div className="mb-2 grid grid-cols-[auto_auto] items-start justify-between gap-x-2">
 				<p>
 					<span className="text-xl font-bold tracking-wide uppercase opacity-50">
 						Current Country
@@ -47,7 +47,7 @@ export default function SuggestionForm() {
 							bounce: 0,
 							duration: 0.5,
 						}}
-						className="block pb-4 text-4xl leading-[0.8]"
+						className="block text-4xl leading-[0.9]"
 					>
 						{country}
 					</motion.span>
@@ -57,7 +57,7 @@ export default function SuggestionForm() {
 					<span className="text-xl font-bold tracking-wide uppercase opacity-50">
 						Score{" "}
 					</span>
-					<span className="block text-4xl">{overallScore}</span>
+					<span className="block text-4xl leading-[0.9]">{overallScore}</span>
 				</p>
 			</div>
 
