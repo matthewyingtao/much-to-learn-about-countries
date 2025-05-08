@@ -10,11 +10,11 @@ export default function ActionTabs() {
 		<>
 			<div className="mb-4 gap-x-4 whitespace-nowrap">
 				<div className="grid grid-cols-[auto_auto] rounded-full border border-black/20">
-					<AnimatePresence>
-						<button
-							className="relative cursor-pointer rounded-full px-4 py-2"
-							onClick={() => setTab("history")}
-						>
+					<button
+						className="relative cursor-pointer rounded-full px-4 py-2"
+						onClick={() => setTab("history")}
+					>
+						<AnimatePresence>
 							{tab === "history" && (
 								<motion.div
 									initial={{ opacity: 0, scale: 0.8 }}
@@ -24,12 +24,14 @@ export default function ActionTabs() {
 									className="absolute inset-0 rounded-full bg-gradient-to-b from-white to-gray-300"
 								/>
 							)}
-							<span className="relative z-10">History</span>
-						</button>
-						<button
-							className="relative cursor-pointer rounded-full px-4 py-2"
-							onClick={() => setTab("remainingCountries")}
-						>
+						</AnimatePresence>
+						<span className="relative z-10">History</span>
+					</button>
+					<button
+						className="relative cursor-pointer rounded-full px-4 py-2"
+						onClick={() => setTab("remainingCountries")}
+					>
+						<AnimatePresence>
 							{tab === "remainingCountries" && (
 								<motion.div
 									initial={{ opacity: 0, scale: 0.8 }}
@@ -39,9 +41,9 @@ export default function ActionTabs() {
 									className="absolute inset-0 rounded-full bg-gradient-to-b from-white to-gray-300"
 								/>
 							)}
-							<span className="relative z-10">Remaining Countries</span>
-						</button>
-					</AnimatePresence>
+						</AnimatePresence>
+						<span className="relative z-10">Remaining Countries</span>
+					</button>
 				</div>
 			</div>
 
