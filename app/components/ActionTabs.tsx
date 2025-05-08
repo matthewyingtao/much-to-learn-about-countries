@@ -26,8 +26,7 @@ export default function ActionTabs() {
 									animate={{ opacity: 1, scale: 1 }}
 									exit={{ opacity: 0, scale: 0.8 }}
 									transition={{ type: "spring", bounce: 0, duration: 0.5 }}
-									className="absolute inset-0 rounded-full bg-gradient-to-b from-[#F9F9F9] to-[#E5E5E5]" // Or z-0
-									layoutId="tab"
+									className="absolute inset-0 rounded-full bg-gradient-to-b from-[#F9F9F9] to-[#E5E5E5]"
 								/>
 							)}
 							<span className="relative z-10">History</span>
@@ -42,8 +41,7 @@ export default function ActionTabs() {
 									animate={{ opacity: 1, scale: 1 }}
 									exit={{ opacity: 0, scale: 0.8 }}
 									transition={{ type: "spring", bounce: 0, duration: 0.5 }}
-									className="absolute inset-0 rounded-full bg-gradient-to-b from-[#F9F9F9] to-[#E5E5E5]" // Or z-0
-									layoutId="tab"
+									className="absolute inset-0 rounded-full bg-gradient-to-b from-[#F9F9F9] to-[#E5E5E5]"
 								/>
 							)}
 							<span className="relative z-10">Remaining Countries</span>
