@@ -125,7 +125,9 @@ function HistoryDisplay() {
 											backgroundColor: getHistoryCardColor(pass),
 										}}
 									/>
-									<p className="w-[15ch] flex-1">{suggestion}</p>
+									<p className="w-[15ch] flex-1 wrap-break-word hyphens-auto">
+										{suggestion}
+									</p>
 									<p>{response}</p>
 								</motion.div>
 							))}
