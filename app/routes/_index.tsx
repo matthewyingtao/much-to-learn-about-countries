@@ -38,6 +38,12 @@ export default function Home() {
 					animationTime: 500,
 				}}
 				centerOnInit={true}
+				maxScale={100}
+				wheel={{
+					step: 3000,
+					smoothStep: 0.0125,
+				}}
+				limitToBounds={false}
 			>
 				<TransformComponent
 					wrapperStyle={{
