@@ -1,5 +1,5 @@
 import { useStore } from "@nanostores/react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { href, useFetcher } from "react-router";
 import {
@@ -33,36 +33,48 @@ export default function SuggestionForm() {
 			}}
 			className="mb-4"
 		>
-			<div className="mb-2 grid grid-cols-[auto_auto] items-start justify-between gap-x-2">
+			{/* hidden form value */}
+			<input name="country" hidden value={country} readOnly />
+			<div className="mb-2 grid grid-cols-[1fr_auto] items-start justify-between gap-x-2">
 				<p>
 					<span className="text-xl font-bold tracking-wide uppercase opacity-50">
 						Current Country
 					</span>
-					<motion.span
-						initial={{ opacity: 0, y: -8 }}
-						animate={{ opacity: 1, y: 0 }}
-						key={country}
-						transition={{
-							type: "spring",
-							bounce: 0,
-							duration: 0.5,
-						}}
-						className="block text-4xl leading-[0.9]"
-					>
-						{country}
-					</motion.span>
+					<AnimatePresence mode="popLayout">
+						<motion.span
+							layout
+							initial={{ opacity: 0, y: 8 }}
+							animate={{ opacity: 1, y: 0, transition: { delay: 0.1 } }}
+							exit={{ opacity: 0, y: -8 }}
+							key={country}
+							transition={{ type: "spring", bounce: 0, duration: 0.5 }}
+							className="block text-4xl leading-[0.9]"
+						>
+							{country}
+						</motion.span>
+					</AnimatePresence>
 				</p>
 
-				<p className="grid text-right">
+				<p className="relative grid text-right">
 					<span className="text-xl font-bold tracking-wide uppercase opacity-50">
-						Score{" "}
+						Score
 					</span>
-					<span className="block text-4xl leading-[0.9]">{overallScore}</span>
+					<AnimatePresence mode="popLayout">
+						<motion.span
+							layout
+							initial={{ opacity: 0, y: -8 }}
+							animate={{ opacity: 1, y: 0 }}
+							exit={{ opacity: 0, y: -8 }}
+							key={overallScore}
+							transition={{ type: "spring", bounce: 0, duration: 0.5 }}
+							className="block text-4xl leading-[0.9]"
+						>
+							{overallScore}
+						</motion.span>
+					</AnimatePresence>
 				</p>
 			</div>
 
-			{/* hidden form value */}
-			<input name="country" hidden value={country} readOnly />
 			<div className="overflow-hidden rounded-full bg-gradient-to-b from-gray-300 to-white p-1 shadow-md">
 				<div className="flex overflow-hidden rounded-full bg-gradient-to-b from-white to-gray-300">
 					<input
@@ -74,7 +86,7 @@ export default function SuggestionForm() {
 						onChange={(e) => setSuggestion(e.target.value)}
 						required
 					/>
-					<motion.button
+					<button
 						type="submit"
 						disabled={fetcher.state !== "idle"}
 						className="starry-button-border group cursor-pointer rounded-full p-1 transition-all duration-[250ms] ease-in-out disabled:cursor-not-allowed disabled:brightness-[0.8] disabled:saturate-[0.8]"
@@ -106,7 +118,7 @@ export default function SuggestionForm() {
 								className="loader absolute inset-0 m-auto"
 							></motion.div>
 						</div>
-					</motion.button>
+					</button>
 				</div>
 			</div>
 		</fetcher.Form>
