@@ -78,7 +78,7 @@ function HistoryDisplay() {
 
 	return (
 		<div className="-mt-4 flex flex-col-reverse gap-y-4">
-			{history.map(({ country, guesses }) => {
+			{history.map(({ country, guesses }, idx) => {
 				// if there are no guesses, don't display the country
 				if (guesses.length === 0) return null;
 
@@ -86,7 +86,12 @@ function HistoryDisplay() {
 					<motion.div
 						initial={{ opacity: 0, y: 8 }}
 						animate={{ opacity: 1, y: 0 }}
-						transition={{ type: "spring", bounce: 0, duration: 0.5 }}
+						transition={{
+							type: "spring",
+							bounce: 0,
+							duration: 0.5,
+							delay: (history.length - 1) * 0.1 - idx * 0.1,
+						}}
 						key={country}
 					>
 						<h3 className="-z-10 mb-2 translate-y-4 mask-b-from-0 text-5xl leading-[0.85] font-bold tracking-wide text-black/30 uppercase">
