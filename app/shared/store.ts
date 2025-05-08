@@ -132,6 +132,9 @@ export function assignRandomCountry() {
 }
 
 const assignANewCountryOnScoreChange = effect($overallScore, () => {
+	const country = $currentCountry.get();
+	if (!country) return;
+
 	assignRandomCountry();
 });
 
