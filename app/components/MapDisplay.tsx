@@ -1,4 +1,5 @@
 import { useStore } from "@nanostores/react";
+import { motion } from "framer-motion";
 import { mapPaths } from "~/data/countries";
 import { $countriesCompleted, $currentCountry } from "~/shared/store";
 
@@ -36,20 +37,25 @@ export default function MapDisplay() {
 
 				if (multiplePaths) {
 					return (
-						<g key={name} name={name} fill={fillColor} stroke="white">
+						<motion.g
+							key={name}
+							name={name}
+							animate={{ fill: fillColor }}
+							stroke="white"
+						>
 							{paths.map((path) => (
 								<path key={path} d={path} />
 							))}
-						</g>
+						</motion.g>
 					);
 				}
 
 				return (
-					<path
+					<motion.path
 						key={name}
 						d={paths[0]}
 						name={name}
-						fill={fillColor}
+						animate={{ fill: fillColor }}
 						stroke="white"
 					/>
 				);
