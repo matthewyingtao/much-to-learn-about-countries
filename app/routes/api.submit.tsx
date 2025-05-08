@@ -37,6 +37,8 @@ export async function action({ request }: Route.ActionArgs) {
 
 	const completion = await openai.beta.chat.completions.parse({
 		model: "gpt-4.1-nano",
+		seed: 727,
+		temperature: 0.1,
 		messages: [
 			{ role: "system", content: systemPrompt },
 			{
