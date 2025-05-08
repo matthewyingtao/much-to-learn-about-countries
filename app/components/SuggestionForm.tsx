@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { href, useFetcher } from "react-router";
 import {
 	$currentCountry,
+	$history,
 	$overallScore,
 	submitGuess,
 	updateGuessResponse,
@@ -83,7 +84,29 @@ export default function SuggestionForm() {
 						className="w-full rounded-full p-2 outline-current"
 						value={suggestion}
 						autoComplete="off"
-						onChange={(e) => setSuggestion(e.target.value)}
+						onChange={(e) => {
+							const val = e.target.value;
+							setSuggestion(val);
+
+							const currentCountryGuesses = $history
+								.get()
+								.at(-1)!
+								.guesses.map((g) => g.suggestion.trim().toLowerCase());
+
+							const alreadyGuessed = currentCountryGuesses.includes(
+								val.trim().toLowerCase(),
+							);
+
+							if (alreadyGuessed) {
+								e.target.setCustomValidity(
+									`You've already guessed "${val}" for ${country}.`,
+								);
+							} else {
+								e.target.setCustomValidity("");
+							}
+						}}
+						minLength={2}
+						maxLength={100}
 						required
 					/>
 					<button
