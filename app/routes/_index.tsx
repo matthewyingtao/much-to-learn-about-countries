@@ -27,6 +27,9 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
 	useEffect(() => {
+		if (typeof window === "undefined") return;
+		if ($currentCountry.get()) return;
+
 		assignRandomCountry();
 	}, []);
 
