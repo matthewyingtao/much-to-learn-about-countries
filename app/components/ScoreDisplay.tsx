@@ -16,7 +16,7 @@ export default function ScoreDisplay() {
 
 	return (
 		<>
-			<div className="mb-6 flex gap-1">
+			<div className="mb-2 flex gap-1">
 				{attemptsPadded.map((attempt, i) => {
 					const gradientTable = {
 						pass: "from-[#C1E694] to-[#42A050]",
@@ -43,7 +43,12 @@ export default function ScoreDisplay() {
 					);
 				})}
 			</div>
-			<h1 className="mb-6 max-w-[15ch] text-4xl">Score: {overallScore}</h1>
+			<h1 className="mb-12">
+				<span className="text-xl font-bold tracking-wide uppercase opacity-50">
+					Score{" "}
+				</span>
+				<span className="block text-4xl leading-[0.8]">{overallScore}</span>
+			</h1>
 		</>
 	);
 }
