@@ -12,8 +12,10 @@ import {
 import type { CountryResponse } from "~/shared/zodTypes.server";
 
 export default function SuggestionForm() {
-	const overallScore = useStore($overallScore);
 	const fetcher = useFetcher<CountryResponse>();
+
+	const overallScore = useStore($overallScore);
+	const country = useStore($currentCountry);
 
 	useEffect(() => {
 		if (!fetcher.data) return;
@@ -21,8 +23,6 @@ export default function SuggestionForm() {
 	}, [fetcher.data]);
 
 	const [suggestion, setSuggestion] = useState("");
-
-	const country = useStore($currentCountry);
 
 	return (
 		<fetcher.Form
