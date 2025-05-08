@@ -10,7 +10,7 @@ import IntroModal from "~/components/IntroModal";
 import MapDisplay from "~/components/MapDisplay";
 import ScoreDisplay from "~/components/ScoreDisplay";
 import SuggestionForm from "~/components/SuggestionForm";
-import { $currentCountry, assignRandomCountry } from "~/shared/store";
+import { $currentCountry } from "~/shared/store";
 import usePrevious from "~/shared/utils";
 import pattern from "../assets/dots.webp";
 import type { Route } from "./+types/_index";
@@ -27,13 +27,6 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-	useEffect(() => {
-		if (typeof window === "undefined") return;
-		if ($currentCountry.get()) return;
-
-		assignRandomCountry();
-	}, []);
-
 	return (
 		<main className="grid h-screen md:grid-cols-[auto_minmax(min-content,55ch)]">
 			<TransformWrapper

@@ -1,6 +1,6 @@
 import { useStore } from "@nanostores/react";
 import { useEffect, useRef } from "react";
-import { $isIntroModalOpen } from "~/shared/store";
+import { $isIntroModalOpen, assignRandomCountry } from "~/shared/store";
 import pattern from "../assets/dots.webp";
 
 const closeCallback = () => {
@@ -53,11 +53,14 @@ export default function IntroModal() {
 					"Anime", or "Sakura".
 				</p>
 				<button
-					onClick={closeCallback}
+					onClick={() => {
+						closeCallback();
+						assignRandomCountry();
+					}}
 					className="starry-button-border cursor-pointer rounded-full p-1"
 				>
 					<div className="starry-button flex h-full items-center rounded-full px-8 py-2 text-sm leading-none text-white">
-						Close
+						Start Game!
 					</div>
 				</button>
 			</div>
