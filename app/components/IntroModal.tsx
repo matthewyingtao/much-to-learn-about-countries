@@ -35,7 +35,7 @@ export default function IntroModal() {
 				<img
 					src={pattern}
 					alt=""
-					className="pointer-events-none absolute top-0 left-0 -z-10 w-full"
+					className="pointer-events-none absolute top-0 left-0 -z-10 w-full select-none"
 				/>
 				<h1 className="mb-6 w-[15ch] text-4xl leading-[0.95]">
 					Much to Learn About Countries
