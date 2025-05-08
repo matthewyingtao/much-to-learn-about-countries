@@ -2,7 +2,6 @@ import { useStore } from "@nanostores/react";
 import { useEffect, useRef } from "react";
 import { $isIntroModalOpen } from "~/shared/store";
 import pattern from "../assets/dots.webp";
-import Logo from "../assets/logo.png";
 
 const closeCallback = () => {
 	$isIntroModalOpen.set(false);
@@ -38,7 +37,9 @@ export default function IntroModal() {
 					alt=""
 					className="pointer-events-none absolute top-0 left-0 -z-10 w-full"
 				/>
-				<img className="mb-6 w-[30ch]" alt="Logo" src={Logo} />
+				<h1 className="mb-6 w-[15ch] text-4xl leading-[0.95]">
+					Much to Learn About Countries
+				</h1>
 				<p className="mb-2">
 					This game is a fun challenge to test your knowledge of countries!
 				</p>

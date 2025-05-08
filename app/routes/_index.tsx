@@ -12,7 +12,6 @@ import ScoreDisplay from "~/components/ScoreDisplay";
 import SuggestionForm from "~/components/SuggestionForm";
 import { $currentCountry, assignRandomCountry } from "~/shared/store";
 import pattern from "../assets/dots.webp";
-import Logo from "../assets/logo.png";
 import type { Route } from "./+types/_index";
 
 export function meta({}: Route.MetaArgs) {
@@ -54,7 +53,9 @@ export default function Home() {
 					alt=""
 					className="pointer-events-none absolute top-0 left-0 -z-10 w-full"
 				/>
-				<img className="mb-6 max-w-[30ch]" src={Logo} alt="Logo" />
+				<h1 className="mb-6 w-[15ch] text-4xl leading-[0.95]">
+					Much to Learn About Countries
+				</h1>
 				<IntroModal />
 				<SuggestionForm />
 				<ScoreDisplay />
