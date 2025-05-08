@@ -21,7 +21,7 @@ export default function MapDisplay() {
 			strokeWidth=".3"
 			version="1.2"
 			viewBox="0 0 2000 857"
-			className="h-full w-full cursor-grab active:cursor-grabbing"
+			className="h-full w-full cursor-grab drop-shadow active:cursor-grabbing"
 			xmlns="http://www.w3.org/2000/svg"
 		>
 			{mapPaths.map(({ name, paths }) => {
