@@ -28,7 +28,7 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
 	return (
-		<main className="grid h-screen md:grid-cols-[auto_minmax(min-content,55ch)]">
+		<main className="grid h-screen grid-rows-[1fr_2fr] md:grid-cols-[auto_minmax(min-content,55ch)] md:grid-rows-none">
 			<TransformWrapper
 				velocityAnimation={{
 					animationTime: 100,
