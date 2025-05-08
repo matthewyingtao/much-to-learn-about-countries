@@ -31,7 +31,9 @@ export default function SuggestionForm() {
 			}}
 			className="mb-4"
 		>
-			<motion.h3 className="text-2xl">Current Country</motion.h3>
+			<motion.h3 className="text-xl font-bold tracking-wide uppercase opacity-50">
+				Current Country
+			</motion.h3>
 			<motion.span
 				initial={{ opacity: 0, y: -8 }}
 				animate={{ opacity: 1, y: 0 }}
