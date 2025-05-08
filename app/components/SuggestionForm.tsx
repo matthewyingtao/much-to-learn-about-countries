@@ -4,12 +4,14 @@ import { useEffect, useState } from "react";
 import { href, useFetcher } from "react-router";
 import {
 	$currentCountry,
+	$overallScore,
 	submitGuess,
 	updateGuessResponse,
 } from "~/shared/store";
 import type { CountryResponse } from "~/shared/zodTypes.server";
 
 export default function SuggestionForm() {
+	const overallScore = useStore($overallScore);
 	const fetcher = useFetcher<CountryResponse>();
 
 	useEffect(() => {
@@ -31,22 +33,34 @@ export default function SuggestionForm() {
 			}}
 			className="mb-4"
 		>
-			<motion.h3 className="text-xl font-bold tracking-wide uppercase opacity-50">
-				Current Country
-			</motion.h3>
-			<motion.span
-				initial={{ opacity: 0, y: -8 }}
-				animate={{ opacity: 1, y: 0 }}
-				key={country}
-				transition={{
-					type: "spring",
-					bounce: 0,
-					duration: 0.5,
-				}}
-				className="block pb-4 text-4xl leading-[0.8]"
-			>
-				{country}
-			</motion.span>
+			<div className="grid grid-cols-[auto_auto] items-start justify-between">
+				<p>
+					<span className="text-xl font-bold tracking-wide uppercase opacity-50">
+						Current Country
+					</span>
+					<motion.span
+						initial={{ opacity: 0, y: -8 }}
+						animate={{ opacity: 1, y: 0 }}
+						key={country}
+						transition={{
+							type: "spring",
+							bounce: 0,
+							duration: 0.5,
+						}}
+						className="block pb-4 text-4xl leading-[0.8]"
+					>
+						{country}
+					</motion.span>
+				</p>
+
+				<p className="grid text-right">
+					<span className="text-xl font-bold tracking-wide uppercase opacity-50">
+						Score{" "}
+					</span>
+					<span className="block text-4xl">{overallScore}</span>
+				</p>
+			</div>
+
 			{/* hidden form value */}
 			<input name="country" hidden value={country} readOnly />
 			<div className="overflow-hidden rounded-full bg-gradient-to-b from-gray-300 to-white p-1 shadow-md">
