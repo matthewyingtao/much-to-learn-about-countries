@@ -36,7 +36,16 @@ export default function Home() {
 
 	return (
 		<main className="grid h-screen md:grid-cols-[auto_minmax(min-content,55ch)]">
-			<TransformWrapper centerOnInit={true}>
+			<TransformWrapper
+				panning={{
+					velocityDisabled: true,
+				}}
+				alignmentAnimation={{
+					animationType: "easeInOutCubic",
+					animationTime: 500,
+				}}
+				centerOnInit={true}
+			>
 				<TransformComponent
 					wrapperStyle={{
 						height: "100%",
