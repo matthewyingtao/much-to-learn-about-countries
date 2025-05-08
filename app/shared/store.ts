@@ -132,6 +132,8 @@ export function assignRandomCountry() {
 }
 
 const assignANewCountryOnScoreChange = effect($overallScore, () => {
+	// the initial assignment should only happen on client, otherwise it will cause a hydration error
+	// check `/routes/_index.tsx` for the initial assignment
 	const country = $currentCountry.get();
 	if (!country) return;
 
