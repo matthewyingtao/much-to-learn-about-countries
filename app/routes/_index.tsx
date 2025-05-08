@@ -11,6 +11,7 @@ import MapDisplay from "~/components/MapDisplay";
 import ScoreDisplay from "~/components/ScoreDisplay";
 import SuggestionForm from "~/components/SuggestionForm";
 import { $currentCountry, assignRandomCountry } from "~/shared/store";
+import usePrevious from "~/shared/utils";
 import pattern from "../assets/dots.webp";
 import type { Route } from "./+types/_index";
 
@@ -72,17 +73,52 @@ export default function Home() {
 // it needs to be a child of TransformWrapper to get the zoomToElement function.
 function MapController() {
 	const country = useStore($currentCountry);
+	const prevCountry = usePrevious(country);
+
 	const { zoomToElement } = useControls();
 
 	useEffect(() => {
 		if (!country) return;
 
+		let zoomDuration = 1000;
+		const speed = 1;
+
 		const countryEl = document.querySelector(
 			`[name="${country}"]`,
 		) as HTMLElement;
 
-		zoomToElement(countryEl, 2.5, 1000, "easeInOutCubic");
-	});
+		if (prevCountry && prevCountry !== country) {
+			console.log({
+				prevCountry,
+				country,
+			});
+
+			const prevCountryEl = document.querySelector(
+				`[name="${prevCountry}"]`,
+			) as HTMLElement;
+
+			const prevCountryRect = prevCountryEl.getBoundingClientRect();
+			const countryRect = countryEl.getBoundingClientRect();
+
+			const prevCountryCenterX =
+				prevCountryRect.left + prevCountryRect.width / 2;
+
+			const prevCountryCenterY =
+				prevCountryRect.top + prevCountryRect.height / 2;
+
+			const countryCenterX = countryRect.left + countryRect.width / 2;
+			const countryCenterY = countryRect.top + countryRect.height / 2;
+
+			const distanceX = countryCenterX - prevCountryCenterX;
+			const distanceY = countryCenterY - prevCountryCenterY;
+
+			const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
+			zoomDuration = Math.max(distance / speed, 750);
+		}
+
+		zoomToElement(countryEl, 2.5, zoomDuration, "easeInOutCubic");
+	}, [country]);
 
 	return <></>;
 }
